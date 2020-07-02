@@ -66,8 +66,8 @@ Player.getAll = result => {
 
 //update player by ID 
 
-Player.updateById = (id, player, result) => {
-    mysql.query("UPDATE player SET name = ? WHERE playerId  = ? ", [player.name, playerId], (err, res) => {
+Player.updateById = (playerId, player, result) => {
+    mysql.query("UPDATE player SET name = ?, email = ?  WHERE playerId  = ? ", [player.name, player.email, playerId], (err, res) => {
         if (err) {
             console.log("error: ", err)
             result(null, err)
@@ -109,7 +109,7 @@ Player.remove = (playerId, result) => {
 // remove all player
 
 Player.removeAll = result => {
-    mysql.query("DELETED FROM player", (err, res) => {
+    mysql.query("DELETE FROM player", (err, res) => {
         if (err) {
             console.log("error: ", err)
             result(null, err)
@@ -121,4 +121,4 @@ Player.removeAll = result => {
     })
 }
 
-module.exports = player;
+module.exports = Player;
