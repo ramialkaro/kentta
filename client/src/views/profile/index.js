@@ -1,7 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Paper, Typography, Grid, Box, Avatar, Card, CardContent, Divider } from '@material-ui/core';
-
+import { Typography, Grid, Avatar, Card, CardContent, CardActions, TextField, Switch, FormControlLabel, InputLabel, Select, Container, Button } from '@material-ui/core';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const useStyles = makeStyles((theme) => ({
 
@@ -11,10 +11,25 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '97vh',
         padding: theme.spacing(3),
     },
+    upperSection: {
+        columnCount: '2'
+    },
     avatar: {
         textAlign: 'center'
     },
-    largeImage: {
+    name: {
+        textAlign: 'center',
+        paddingTop: theme.spacing(1)
+    },
+    stdInput: {
+        marginBottom: theme.spacing(3),
+        minWidth: '100%'
+    },
+    stdButton: {
+        marginBottom: theme.spacing(3),
+        minWidth: '45%'
+    },
+    userImg: {
         width: theme.spacing(9),
         height: theme.spacing(9),
         display: 'inline-block'
@@ -22,53 +37,83 @@ const useStyles = makeStyles((theme) => ({
     card: {
         marginTop: theme.spacing(7),
         paddingTop: theme.spacing(2),
-        minHeight: '55vh',
+        minHeight: '50vh',
     },
-    name: {
-        textAlign: 'center',
-        paddingTop: theme.spacing(1)
-    },
-    margin:{
-        margin: theme.spacing(2)
-    }
 }));
 
 
- const Profile=()=> {
+const Profile = () => {
     const classes = useStyles();
+    const [state, setState] = React.useState({
+        online: true,
+        playerStatus: 'going',
+        readOnly:true
+    })
+    const handleChange = (e) => {
+        const name = e.target.name
+        setState({ ...state, [name]: e.target.checked })
+    }
+
+    const handleStatus = (e) => {
+        const name = e.target.name
+        setState({ ...state, [name]: e.target.value })
+        console.log(state.playerStatus)
+    }
     return (
         <Grid container>
-            <Grid item xs={12}>
-                <div className={classes.bg}>
-                    <div className={classes.avatar}>
-                        <Avatar alt="player" src="player.png" className={classes.largeImage} />
-                    </div>
-                    <div className={classes.name}>
-                        <Typography variant="h4" component="h2">Player Profile</Typography>
-                        <Typography variant="p" component="body">some text will...</Typography>
-                    </div>
-                    <Card className={classes.card}>
-                        <CardContent>
-                            <Typography gutterBottom variant="h5" component="h2">
-                                Lizard
-                            </Typography>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                across all continents except Antarctica
-                            </Typography>
-                            <Divider className={classes.margin}/>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                across all continents except Antarctica
-                            </Typography>
-                            <Divider className={classes.margin}/>
-                            <Typography variant="body2" color="textSecondary" component="p">
-                                Lizards are a widespread group of squamate reptiles, with over 6,000 species, ranging
-                                across all continents except Antarctica
-                            </Typography>
-                        </CardContent>
-                    </Card>
-                </div>
+            <Grid item xs={12} className={classes.bg}>
+
+                <Grid className={classes.avatar}>
+                    <Avatar alt="player" src="player.png" className={classes.userImg} />
+                </Grid>
+                <Grid className={classes.name}>
+                    <Typography variant="h4" component="h2">Player name</Typography>
+                    <Typography variant="subtitle1" component="p">Player Bio </Typography>
+                </Grid>
+
+                <Card className={classes.card}>
+                    <CardContent>
+                        <TextField
+                            label="Phone"
+                            readOnly={state.readOnly}
+                            value="040 120 1212"
+                            name="phone"
+                            className={classes.stdInput}
+                        />
+                        <TextField
+                            label="Email"
+                            readOnly={state.readOnly}
+                            value="info@test.fi"
+                            name="email"
+                            className={classes.stdInput}
+                        />
+                        <FormControlLabel
+                            control={<Switch checked={state.online} onChange={handleChange} color="primary" name="online" />}
+                            label="Online"
+                            className={classes.stdInput}
+                        />
+                        <InputLabel htmlFor="status-selector">Status</InputLabel>
+                        <Select
+                            native
+                            value={state.playerStatus}
+                            onChange={handleStatus}
+                            inputProps={{
+                                name: 'playerStatus',
+                                id: 'status-selector'
+                            }}
+                            className={classes.stdInput}
+                        >
+                            <option value="going">Going</option>
+                            <option value="notInterested">Not interested</option>
+                            <option value="maybe">Maybe</option>
+                        </Select>
+                    </CardContent>
+                    <CardActions>
+                        <Button color="secondary" className={classes.stdButton} startIcon={<FontAwesomeIcon icon="edit" />}>Edit</Button>
+                        <Button color="primary" className={classes.stdButton} startIcon={<FontAwesomeIcon icon="lock" />}>Log out</Button>
+                    </CardActions>
+                </Card>
+
             </Grid>
         </Grid>
     );
