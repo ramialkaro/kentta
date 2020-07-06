@@ -1,10 +1,26 @@
 import React from 'react'
+import {Container, Grid} from '@material-ui/core'
+import SimpleCard from './SimpleCard'
+import { makeStyles } from '@material-ui/core/styles'
 
+const useStyles = makeStyles((theme) => ({
+    root: {        
+        paddingTop:'8vh',
+        backgroundColor: theme.palette.secondary.light,
+        height: '100vh'
+    },
+}))
 const Team = ()=> {
+    const classes = useStyles()
+
     return (
-        <div>
-            <h5>Team will be here...</h5>
-        </div>
+        <Container className={classes.root}>
+            <SimpleCard/>
+            <SimpleCard/>
+            <SimpleCard/>
+            <SimpleCard/>
+            <SimpleCard/>
+        </Container>
     )
 }
 
