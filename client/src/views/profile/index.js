@@ -34,14 +34,14 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function ProfileComponent() {
+ const Profile=()=> {
     const classes = useStyles();
     return (
         <Grid container>
             <Grid item xs={12}>
                 <div className={classes.bg}>
                     <div className={classes.avatar}>
-                        <Avatar alt="player" src={require("../media/player.png")} className={classes.largeImage} />
+                        <Avatar alt="player" src="player.png" className={classes.largeImage} />
                     </div>
                     <div className={classes.name}>
                         <Typography variant="h4" component="h2">Player Profile</Typography>
@@ -73,3 +73,4 @@ export default function ProfileComponent() {
         </Grid>
     );
 }
+export default Profile

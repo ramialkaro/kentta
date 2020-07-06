@@ -1,9 +1,11 @@
 import React from 'react'
 
-export default function TeamComponent() {
+const Team = ()=> {
     return (
-        <div className="team">
+        <div>
             <h5>Team will be here...</h5>
         </div>
-    );
+    )
 }
+
+export default Team
