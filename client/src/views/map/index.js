@@ -1,9 +1,10 @@
 import React from 'react'
+import SimpleMap from './SimpleMap'
 
 const Map = ()=> {
     return (
         <div>
-            <h5>Map will be here...</h5>
+           <SimpleMap/>
         </div>
     )
 }

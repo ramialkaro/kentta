@@ -27,7 +27,7 @@ const useStyles = makeStyles((theme) => ({
     },
     stdButton: {
         marginBottom: theme.spacing(3),
-        minWidth: '45%'
+        minWidth: '49%'
     },
     userImg: {
         width: theme.spacing(9),

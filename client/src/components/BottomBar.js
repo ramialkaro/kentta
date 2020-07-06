@@ -33,7 +33,7 @@ const BottomBar = () => {
 
         <div className={classes.grow} />
 
-        <Link href="/">
+        <Link href="/map">
           <IconButton color="inherit" aria-label="add">
             <PlaceIcon />
           </IconButton>
