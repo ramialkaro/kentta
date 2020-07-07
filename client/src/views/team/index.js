@@ -2,12 +2,12 @@ import React from 'react'
 import {Container} from '@material-ui/core'
 import SimpleCard from './SimpleCard'
 import { makeStyles } from '@material-ui/core/styles'
-
+import { b, r, y, gr} from "./colors"
 const useStyles = makeStyles((theme) => ({
     root: {        
         paddingTop:'8vh',
         backgroundColor: theme.palette.secondary.light,
-        height: '100vh'
+        minHeight: '93vh'
     },
 }))
 const Team = ()=> {
@@ -15,11 +15,14 @@ const Team = ()=> {
 
     return (
         <Container className={classes.root}>
-            <SimpleCard/>
-            <SimpleCard/>
-            <SimpleCard/>
-            <SimpleCard/>
-            <SimpleCard/>
+            <SimpleCard color={gr}/>
+            <SimpleCard color={r}/>
+            <SimpleCard color={b}/>
+            <SimpleCard color={y}/>
+            <SimpleCard color={r}/>
+            <SimpleCard color={gr}/>
+            <SimpleCard color={y}/>
+            <SimpleCard color={b}/>
         </Container>
     )
 }

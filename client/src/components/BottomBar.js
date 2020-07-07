@@ -7,9 +7,6 @@ import { makeStyles } from '@material-ui/core/styles'
 
 
 const useStyles = makeStyles((theme) => ({
-  paper: {
-    paddingBottom: 50,
-  },
   appBar: {
     top: 'auto',
     bottom: 0,
