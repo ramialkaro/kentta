@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
     },
     stdInput: {
         marginBottom: theme.spacing(3),
-        minWidth: '100%'
     },
     stdButton: {
         marginBottom: theme.spacing(3),
@@ -61,7 +60,7 @@ const Profile = () => {
     }
     return (
         <Grid container>
-            <Grid item xs={12} className={classes.bg}>
+            <Grid item xs className={classes.bg}>
 
                 <Grid className={classes.avatar}>
                     <Avatar alt="player" src="player.png" className={classes.userImg} />
@@ -78,19 +77,23 @@ const Profile = () => {
                             readOnly={state.readOnly}
                             value="040 120 1212"
                             name="phone"
-                            className={classes.stdInput}
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
                         />
                         <TextField
                             label="Email"
                             readOnly={state.readOnly}
                             value="info@test.fi"
                             name="email"
-                            className={classes.stdInput}
+                            fullWidth
+                            margin="normal"
+                            variant="outlined"
                         />
                         <FormControlLabel
                             control={<Switch checked={state.online} onChange={handleChange} color="primary" name="online" />}
                             label="Online"
-                            className={classes.stdInput}
+                            
                         />
                         <InputLabel htmlFor="status-selector">Status</InputLabel>
                         <Select
@@ -99,9 +102,11 @@ const Profile = () => {
                             onChange={handleStatus}
                             inputProps={{
                                 name: 'playerStatus',
-                                id: 'status-selector'
+                                id: 'status-selector0',
+                                margin:"normal",
                             }}
-                            className={classes.stdInput}
+                            fullWidth
+                            
                         >
                             <option value="going">Going</option>
                             <option value="notInterested">Not interested</option>
