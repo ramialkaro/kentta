@@ -20,6 +20,7 @@ app.use((req, res, next) => {
     next();
   });
 require("./routes/player.routes")(app)
+require("./routes/game.routes")(app)
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
 })

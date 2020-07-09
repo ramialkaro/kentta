@@ -4,7 +4,7 @@ const Game = require('../models/game.model')
 // create and save a game 
 exports.create = (req, res)=>{
     //validate request
-    if(req.body){
+    if(!req.body){
         res.status(400).send({
             message: "content can not found by empty!"
         })
@@ -47,15 +47,15 @@ exports.findAll = (req, res)=>{
 
 
 //find a single game with gameId
-exports.findOne= (req, res)=>{
+exports.findOne = (req, res)=>{
     //validate request
-    if(!body.body){
+    if(!req.body){
         res.status(400).send({
             message: "content can not be empty"
         })
     }
 
-    Game.FindById(req.params.gameId, (err, data)=>{
+    Game.findById(req.params.gameId, (err, data)=>{
         if(err){
             if(err.kind === "not_found"){
                 res.status(404).send({

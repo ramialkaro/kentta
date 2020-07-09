@@ -29,7 +29,7 @@ Game.create = (newGame, result)=>{
 
 // get one game 
 
-Game.FindById = (gameId, result)=> {
+Game.findById = (gameId, result)=> {
     mysql.query(`SELECT * FROM game WHERE gameId = ${gameId}`,(err,res)=>{
         if(err){
             console.log("error: ", err)
