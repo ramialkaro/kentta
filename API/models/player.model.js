@@ -49,7 +49,7 @@ Player.findById = (playerId, result) => {
     })
 }
 
-// get all player 
+// get all players 
 
 Player.getAll = result => {
     mysql.query("SELECT * FROM player", (err, res) => {
