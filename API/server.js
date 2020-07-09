@@ -15,6 +15,10 @@ app.get("/", (req, res) => {
     res.json({ messsage: "welcome to Kentta application." })
 })
 
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    next();
+  });
 require("./routes/player.routes")(app)
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`)
