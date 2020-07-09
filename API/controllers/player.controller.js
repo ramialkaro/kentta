@@ -36,7 +36,7 @@ exports.findAll = (req, res) => {
     Player.getAll((err, data) => {
         if (err) {
             res.status(500).send({
-                message: errr.message || "Some error occurred while retrieving player."
+                message: err.message || "Some error occurred while retrieving player."
             })
         } else {
             res.send(data)
