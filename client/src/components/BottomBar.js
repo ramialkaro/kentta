@@ -1,6 +1,6 @@
 import React from 'react'
 import { AppBar, Toolbar, IconButton } from '@material-ui/core'
-import { SportsFootball as FootBallIcon, Person as PersonIcon, Place as PlaceIcon } from '@material-ui/icons'
+import { SportsFootball as FootBallIcon, Person as PersonIcon, Place as PlaceIcon, People as PeopleIcon } from '@material-ui/icons'
 import Link from '@material-ui/core/Link'
 import { makeStyles } from '@material-ui/core/styles'
 
@@ -30,6 +30,13 @@ const BottomBar = () => {
 
         <div className={classes.grow} />
 
+        <Link href="/game">
+          <IconButton edge="start" color="inherit" aria-label="add">
+            <PeopleIcon />
+          </IconButton>
+        </Link>
+
+        <div className={classes.grow} />
         <Link href="/map">
           <IconButton color="inherit" aria-label="add">
             <PlaceIcon />

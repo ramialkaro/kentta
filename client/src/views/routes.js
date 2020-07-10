@@ -5,6 +5,7 @@ import Team from './team'
 import Map from './map'
 import Register from './register'
 import Login from './login'
+import Game from './game'
 
 const Routes =()=>{
     return(
@@ -14,6 +15,7 @@ const Routes =()=>{
                 <Route path ="/register" component={Register}/>
                 <Route path ="/profile" component={Profile}/>
                 <Route path ="/team" component={Team}/>
+                <Route path ="/game" component={Game}/>
                 <Route path ="/map" component={Map}/>
             </Switch>
         </Router>
