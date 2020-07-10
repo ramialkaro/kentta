@@ -9,8 +9,8 @@ import {uid} from 'react-uid'
 const useStyles = makeStyles((theme) => ({
     root: {        
         paddingTop:'8vh',
-        backgroundColor: theme.palette.secondary.light,
-        minHeight: '93vh'
+        minHeight: '93vh',
+        paddingBottom: '9vh'
     },
 }))
 const Game = ()=> {
