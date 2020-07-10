@@ -2,28 +2,38 @@ import React from 'react'
 import {Container} from '@material-ui/core'
 import SimpleCard from './SimpleCard'
 import { makeStyles } from '@material-ui/core/styles'
-import { b, r, y, gr} from "./colors"
+import TopBar from '../../components/TopBar'
+
 const useStyles = makeStyles((theme) => ({
     root: {        
-        paddingTop:'8vh',
-        backgroundColor: theme.palette.secondary.light,
-        minHeight: '93vh'
+        minHeight: '88vh',
+        paddingTop:theme.spacing(9),
+        paddingBottom:theme.spacing(9)
     },
 }))
+
 const Team = ()=> {
     const classes = useStyles()
 
     return (
+        <>
+         <TopBar />
         <Container className={classes.root}>
-            <SimpleCard color={gr}/>
-            <SimpleCard color={r}/>
-            <SimpleCard color={b}/>
-            <SimpleCard color={y}/>
-            <SimpleCard color={r}/>
-            <SimpleCard color={gr}/>
-            <SimpleCard color={y}/>
-            <SimpleCard color={b}/>
+           
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            <SimpleCard color="#fff"/>
+            
         </Container>
+        </>
     )
 }
 
