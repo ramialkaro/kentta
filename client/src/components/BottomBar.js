@@ -22,7 +22,7 @@ const BottomBar = () => {
     <AppBar position="fixed" color="inherit" className={classes.appBar}>
       <Toolbar >
 
-        <Link href="/team">
+        <Link href="/game">
           <IconButton edge="start" color="inherit" aria-label="add">
             <FootBallIcon />
           </IconButton>
@@ -30,7 +30,7 @@ const BottomBar = () => {
 
         <div className={classes.grow} />
 
-        <Link href="/game">
+        <Link href="/team">
           <IconButton edge="start" color="inherit" aria-label="add">
             <PeopleIcon />
           </IconButton>
