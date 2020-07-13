@@ -1,42 +1,24 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Avatar, Card, CardContent, CardActions, TextField, Switch, FormControlLabel, InputLabel, Select,  Button } from '@material-ui/core';
+import { Typography, Grid, Avatar,  TextField, Switch, FormControlLabel, InputLabel, Select,  Button, Container, Paper } from '@material-ui/core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const useStyles = makeStyles((theme) => ({
-
-    bg: {
+    root:{
         backgroundColor: theme.palette.secondary.light,
-        flexGrow: 1,
-        minHeight: '97vh',
-        padding: theme.spacing(3),
+        minHeight:'93vh'
     },
-    upperSection: {
-        columnCount: '2'
+    title:{
+        padding:theme.spacing(3),
+        marginBottom: theme.spacing(4)
     },
     avatar: {
         textAlign: 'center'
-    },
-    name: {
-        textAlign: 'center',
-        paddingTop: theme.spacing(1)
-    },
-    stdInput: {
-        marginBottom: theme.spacing(3),
-    },
-    stdButton: {
-        marginBottom: theme.spacing(3),
-        minWidth: '49%'
     },
     userImg: {
         width: theme.spacing(9),
         height: theme.spacing(9),
         display: 'inline-block'
-    },
-    card: {
-        marginTop: theme.spacing(7),
-        paddingTop: theme.spacing(2),
-        minHeight: '50vh',
     },
 }));
 
@@ -59,20 +41,23 @@ const Profile = () => {
         console.log(state.playerStatus)
     }
     return (
-        <Grid container>
-            <Grid item xs className={classes.bg}>
+       <Container className={classes.root}>
 
-                <Grid className={classes.avatar}>
-                    <Avatar alt="player" src="player.png" className={classes.userImg} />
+            <Grid container spacing={3} className={classes.title}>
+                <Grid item xs={12} className={classes.avatar}>
+                    <Avatar alt="player" src="player.png" className={classes.userImg}/>
                 </Grid>
-                <Grid className={classes.name}>
+                <Grid item container xs={12} direction="column" alignItems="center">
                     <Typography variant="h4" component="h2">Player name</Typography>
                     <Typography variant="subtitle1" component="p">Player Bio </Typography>
                 </Grid>
+    
+            </Grid>
 
-                <Card className={classes.card}>
-                    <CardContent>
-                        <TextField
+            <Paper>
+                <Container>
+                    <Grid container direction="column" justify="center" spacing={2}>
+                    <TextField
                             label="Phone"
                             readOnly={state.readOnly}
                             value="040 120 1212"
@@ -112,15 +97,18 @@ const Profile = () => {
                             <option value="notInterested">Not interested</option>
                             <option value="maybe">Maybe</option>
                         </Select>
-                    </CardContent>
-                    <CardActions>
-                        <Button color="secondary" className={classes.stdButton} startIcon={<FontAwesomeIcon icon="edit" />}>Edit</Button>
-                        <Button color="primary" className={classes.stdButton} startIcon={<FontAwesomeIcon icon="lock" />}>Log out</Button>
-                    </CardActions>
-                </Card>
-
-            </Grid>
-        </Grid>
+                        <Grid item container xs={12}  direction="row" justify="space-between" alignItems="center" >
+                            
+                                <Button color="secondary" startIcon={<FontAwesomeIcon icon="edit" />}>Edit</Button>
+                            
+                                <Button color="primary" startIcon={<FontAwesomeIcon icon="lock" />}>Log out</Button>
+                            
+                        </Grid>
+                    </Grid>
+                   
+                </Container>
+            </Paper>
+       </Container>
     );
 }
 export default Profile
