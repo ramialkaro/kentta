@@ -1,8 +1,7 @@
 import React from 'react'
-import {AppBar, Toolbar, InputBase} from '@material-ui/core'
+import {AppBar, Toolbar, InputBase, Button} from '@material-ui/core'
 import {makeStyles, fade} from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
-
 const useStyles =makeStyles((theme)=>({
     appBar:{
         top:0,
@@ -46,7 +45,7 @@ const useStyles =makeStyles((theme)=>({
         },
       },
 }))
-const TopBar = () =>{
+const TopBar = ({create}) =>{
     const classes = useStyles();
     return(
         <AppBar position="fixed" color="inherit" className={classes.appBar}>
@@ -63,7 +62,11 @@ const TopBar = () =>{
               }}
               inputProps={{ 'aria-label': 'search' }}
             />
-          </div>
+            </div>
+            {create === true ? 
+            <Button color="primary" size="small" onClick={()=>console.log("testing")}>
+             new
+            </Button>: null }
             </Toolbar>
         </AppBar>
     )

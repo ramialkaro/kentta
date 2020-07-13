@@ -22,7 +22,8 @@
     "react-map-gl": "^5.2.7",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
-    "react-uid": "^2.3.0"
+    "react-uid": "^2.3.0",
+    "shortid": "^2.2.15"
   },
   "scripts": {
     "start": "react-scripts start",
