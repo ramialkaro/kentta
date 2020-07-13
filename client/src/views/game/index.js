@@ -17,7 +17,6 @@ const Game = ()=> {
     const classes = useStyles()
     var gameData = GetGame()
     let totalColor = color.length
-    let colorIndex = Math.floor(Math.random() * totalColor)
 
     
     return (
