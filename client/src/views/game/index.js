@@ -10,9 +10,9 @@ import TopBar from '../../components/TopBar'
 
 const useStyles = makeStyles((theme) => ({
     root: {        
-        paddingTop:'8vh',
         minHeight: '93vh',
-        paddingBottom: '9vh'
+        paddingTop:theme.spacing(9),
+        paddingBottom:theme.spacing(9)
     },
 }))
 const Game = ()=> {

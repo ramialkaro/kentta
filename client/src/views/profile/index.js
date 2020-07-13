@@ -99,9 +99,9 @@ const Profile = () => {
                                 fullWidth
                                 
                             >
-                                <option value={1}>A56a4sdf</option>
-                                <option value={2}>B46ass5a</option>
-                                <option value={3}>GE616532</option>
+                                <option value={1}>Team AA</option>
+                                <option value={2}>Team BB</option>
+                                <option value={3}>Team CC</option>
                             </Select>
                         </FormControl>
 
