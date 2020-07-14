@@ -3,10 +3,9 @@ const mysql = require('./db')
 // game contructor...
 
 const Game = function (game) {
+    this.ID = game.ID;
     this.startTime = game.startTime;
     this.endTime = game.endTime;
-    this.gameId = game.gameId;
-    this.pitchId = game.pitchId;
     this.results = game.results;
 }
 
@@ -29,8 +28,8 @@ Game.create = (newGame, result)=>{
 
 // get one game 
 
-Game.findById = (gameId, result)=> {
-    mysql.query(`SELECT * FROM game WHERE gameId = ${gameId}`,(err,res)=>{
+Game.findById = (ID, result)=> {
+    mysql.query(`SELECT * FROM game WHERE ID = ${ID}`,(err,res)=>{
         if(err){
             console.log("error: ", err)
             result(err, null)
@@ -66,8 +65,8 @@ Game.getAll= result=>{
 
 // update game result by ID
 
-Game.updateById =(gameId, game, result)=>{
-    mysql.query("UPDATE game SET results = ? WHERE gameId = ?", [game.results, gameId], (err, res)=>{
+Game.updateById =(ID, game, result)=>{
+    mysql.query("UPDATE game SET results = ? WHERE ID = ?", [game.results, ID], (err, res)=>{
         if(err){
             console.log("error: ", err)
             result(null, err)
@@ -80,15 +79,15 @@ Game.updateById =(gameId, game, result)=>{
             return
         }
 
-        console.log("updated game: ", {gameId: game.gameId, ...game})
-        result(null, {gameId:gameId, ...game})
+        console.log("updated game: ", {ID: game.ID, ...game})
+        result(null, {ID:ID, ...game})
     })
 }
 
 // remove game by ID
 
-Game.remove = (gameId, result)=>{
-    mysql.query("DELETE FROM game WHERE gameId = ?", gameId, (err,res)=>{
+Game.remove = (ID, result)=>{
+    mysql.query("DELETE FROM game WHERE ID = ?", ID, (err,res)=>{
         if(err){
             console.log("error: ", err)
             result(null, err)
@@ -97,10 +96,10 @@ Game.remove = (gameId, result)=>{
 
         if(res.affectedRows == 0 ) {
             // not found game by the ID
-            result({kind: "deleted game with id: ", gameId})
+            result({kind: "deleted game with id: ", ID})
         }
 
-        console.log("deleted game with id: ", gameId)
+        console.log("deleted game with id: ", ID)
         result(null, res)
     })
 }

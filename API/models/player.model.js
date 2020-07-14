@@ -31,7 +31,7 @@ Player.create = (newPlayer, result) => {
 // get one player 
 
 Player.findById = (playerId, result) => {
-    mysql.query(`SELECT * FROM player WHERE playerId = ${playerId}`, (err, res) => {
+    mysql.query(`SELECT * FROM player WHERE ID = ${playerId}`, (err, res) => {
         if (err) {
             console.log("error: ", err)
             result(err, null)
@@ -67,7 +67,7 @@ Player.getAll = result => {
 //update player by ID 
 
 Player.updateById = (playerId, player, result) => {
-    mysql.query("UPDATE player SET name = ?, email = ?  WHERE playerId  = ? ", [player.name, player.email, playerId], (err, res) => {
+    mysql.query("UPDATE player SET name = ?, email = ?  WHERE ID  = ? ", [player.name, player.email, playerId], (err, res) => {
         if (err) {
             console.log("error: ", err)
             result(null, err)
@@ -88,7 +88,7 @@ Player.updateById = (playerId, player, result) => {
 // remove player by ID 
 
 Player.remove = (playerId, result) => {
-    mysql.query("DELETE FROM player WHERE playerId = ?", playerId, (err, res) => {
+    mysql.query("DELETE FROM player WHERE ID = ?", playerId, (err, res) => {
         if (err) {
             console.log("error: ", err)
             result(null, err)

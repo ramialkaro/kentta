@@ -49,7 +49,7 @@ const SimpleCard = ({ color, data }) => {
             <Grid container spacing={1}>
                 <Grid item container xs={12} justify="space-between" alignItems="center" direction="row">
                     <SportsSoccer/>
-                    <Typography variant="h5">G. {data.gameId}</Typography>
+                    <Typography variant="h5">G. {data.ID}</Typography>
                     
                         <div className={classes.result}>{results[0]} x {results[1]}</div>
                     
