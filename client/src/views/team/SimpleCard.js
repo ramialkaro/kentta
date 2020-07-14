@@ -1,6 +1,7 @@
 import React from 'react'
 import {  Typography,  Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
+import {GetTeam } from '../../data/fetchData'
 
 const useStyles = makeStyles((theme) => ({
     root:{
@@ -17,22 +18,23 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const SimpleCard = ({ color }) => {
+const SimpleCard = ({ data, playerTeam }) => {
     const classes = useStyles()
-
+   
     return (
         <Paper className={classes.root}>
+            
             <Grid container spacing={2}>
                 <Grid item xs={9}>
-                    <Typography variant="h5">Player name</Typography>
+                    <Typography variant="h5">{data.name}</Typography>
                 </Grid>
                 <Grid item xs={3}>
-                    <Typography variant="h6"  className={classes.center}>A</Typography>
+                    <Typography variant="h6"  className={classes.center}>{data.team_ID}</Typography>
                 </Grid>
             </Grid>
 
-            <Grid container >
-                <Typography variant="subtitle2" className={classes.midPart}>Phone: 040 121 1111</Typography>
+            <Grid container justify="flex-start" >
+                <Typography variant="subtitle2" className={classes.midPart}>{data.phone}</Typography>
             </Grid>
 
             <Grid container spacing={2}>

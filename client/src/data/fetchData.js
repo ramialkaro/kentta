@@ -32,3 +32,19 @@ export function GetPlayer(){
     }, [])
     return (playerData)
 }
+
+
+export function GetTeam(){
+    const [teamData, setTeamData] = React.useState([])
+
+    React.useEffect(()=>{
+        apiFetch.get('/team')
+        .then(response => setTeamData(response.data))
+        .catch(err=>{
+            if(err){
+                console.log(err)
+            }
+        })
+    }, [])
+    return (teamData)
+}
