@@ -2,6 +2,7 @@ import React from 'react'
 import {AppBar, Toolbar, InputBase, Button} from '@material-ui/core'
 import {makeStyles, fade} from '@material-ui/core/styles'
 import SearchIcon from '@material-ui/icons/Search'
+import {Link} from 'react-router-dom'
 const useStyles =makeStyles((theme)=>({
     appBar:{
         top:0,
@@ -64,9 +65,12 @@ const TopBar = ({create}) =>{
             />
             </div>
             {create === true ? 
-            <Button color="primary" size="small" onClick={()=>console.log("testing")}>
-             new
-            </Button>: null }
+            <Link to="/newgame">
+              <Button color="primary" size="small">
+                new
+              </Button>
+            </Link>
+            : null }
             </Toolbar>
         </AppBar>
     )

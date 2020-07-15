@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         display: 'inline-box',
         color: '#fff',
         fontSize: '17px',
-        padding: `2pt `,
+        padding: `2pt`,
         textAlign:'center',
         borderRadius:'2px'
     }
@@ -43,13 +43,13 @@ const useStyles = makeStyles((theme) => ({
 const SimpleCard = ({ color, data }) => {
     const classes = useStyles()
     let results = data.results.split(',')
-    console.log(data.startTime)
+    
     return (
         <Paper className={classes.root} style={{backgroundColor: color}}>
             <Grid container spacing={1}>
                 <Grid item container xs={12} justify="space-between" alignItems="center" direction="row">
                     <SportsSoccer/>
-                    <Typography variant="h5">G. {data.ID}</Typography>
+                    <Typography variant="h6">G{data.ID}</Typography>
                     
                         <div className={classes.result}>{results[0]} x {results[1]}</div>
                     
@@ -75,7 +75,7 @@ const SimpleCard = ({ color, data }) => {
                     </Grid>
                     
                     <Grid item xs={4} className={classes.center}>
-                        <Typography variant="subtitle2">Karakallio</Typography>
+                        <Typography variant="subtitle2">Viherlaakso</Typography>
                     </Grid>
 
                     <Grid item xs={4} className={classes.center}>

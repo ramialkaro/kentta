@@ -1,13 +1,15 @@
 import React from 'react'
 import {  Typography,  Grid, Paper } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import {GetTeam } from '../../data/fetchData'
 
 const useStyles = makeStyles((theme) => ({
     root:{
         padding:'7px', 
         margin: '5pt 0 12pt 0', 
-        borderLeft:'2pt solid #44ee22'
+        borderLeft:'3pt solid #00ff00',
+        "&:nth-child(2n)":{
+            borderLeft:'3pt solid #f987c5',
+        }
     },
     center:{
         textAlign:'center'
@@ -18,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
 
 }))
 
-const SimpleCard = ({ data, playerTeam }) => {
+const SimpleCard = ({ data }) => {
     const classes = useStyles()
    
     return (

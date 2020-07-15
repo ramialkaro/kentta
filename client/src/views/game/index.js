@@ -4,7 +4,7 @@ import SimpleCard from './SimpleCard'
 import { makeStyles } from '@material-ui/core/styles'
 import {color} from "./colors"
 import {GetGame} from '../../data/fetchData'
-import {uid, useUID} from 'react-uid'
+import {uid} from 'react-uid'
 import shortid from 'shortid'
 import TopBar from '../../components/TopBar'
 

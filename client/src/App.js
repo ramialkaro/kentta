@@ -11,7 +11,6 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Routes />
-      <BottomBar />
     </ThemeProvider>
   )
 }

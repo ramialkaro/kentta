@@ -6,7 +6,9 @@ import Map from './map'
 import Register from './register'
 import Login from './login'
 import Game from './game'
+import NewGame from './game/NewGame'
 
+import BottomBar from '../components/BottomBar'
 const Routes =()=>{
     return(
         <Router>
@@ -17,7 +19,10 @@ const Routes =()=>{
                 <Route path ="/team" component={Team}/>
                 <Route path ="/game" component={Game}/>
                 <Route path ="/map" component={Map}/>
+                <Route path ="/newgame" component={NewGame} />
             </Switch>
+            
+      <BottomBar />
         </Router>
     )
 }

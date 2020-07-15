@@ -1,7 +1,7 @@
 import React from 'react'
-import { AppBar, Toolbar, IconButton } from '@material-ui/core'
+import { AppBar, Toolbar, IconButton, Grid } from '@material-ui/core'
 import { SportsFootball as FootBallIcon, Person as PersonIcon, Place as PlaceIcon, People as PeopleIcon } from '@material-ui/icons'
-import Link from '@material-ui/core/Link'
+import {Link} from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles'
 
 
@@ -11,9 +11,6 @@ const useStyles = makeStyles((theme) => ({
     top: 'auto',
     bottom: 0,
   },
-  grow: {
-    flexGrow: 0.5,
-  }
 }))
 
 const BottomBar = () => {
@@ -21,34 +18,30 @@ const BottomBar = () => {
   return (
     <AppBar position="fixed" color="inherit" className={classes.appBar}>
       <Toolbar >
-
-        <Link href="/game">
-          <IconButton edge="start" color="inherit" aria-label="add">
+  
+        <Grid item container justify="space-between" xs={12}>
+      
+          <IconButton edge="start" component={Link} to="/game" color="primary" aria-label="add">
             <FootBallIcon />
           </IconButton>
-        </Link>
+      
 
-        <div className={classes.grow} />
-
-        <Link href="/team">
-          <IconButton edge="start" color="inherit" aria-label="add">
+          <IconButton edge="start" component={Link} to="/team" color="primary" aria-label="add">
             <PeopleIcon />
           </IconButton>
-        </Link>
-
-        <div className={classes.grow} />
-        <Link href="/map">
-          <IconButton color="inherit" aria-label="add">
+            
+       
+          <IconButton color="primary" component={Link} to="/map" aria-label="add">
             <PlaceIcon />
           </IconButton>
-        </Link>
-        <div className={classes.grow} />
-
-        <Link href="/profile">
-          <IconButton edge="end" color="inherit" aria-label="person">
+       
+        
+          <IconButton edge="end" component={Link} to="/profile" color="primary" aria-label="person">
             <PersonIcon />
           </IconButton>
-        </Link>
+
+          </Grid>
+
 
       </Toolbar>
     </AppBar>
