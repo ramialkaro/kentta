@@ -1,10 +1,12 @@
 import React from 'react'
 import {makeStyles} from '@material-ui/core/styles'
 import {Container, TextField, Grid,  InputLabel, Select, FormControl, Typography, Button} from '@material-ui/core'
-import {DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider} from '@material-ui/pickers'
+import {DateTimePicker,  MuiPickersUtilsProvider} from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import CancelIcon from '@material-ui/icons/Cancel'
 import {Link} from 'react-router-dom'
+import shortid from 'shortid'
+import {PostGame} from '../../data/fetchData'
 
 const useStyles = makeStyles((theme)=>({
     root:{
@@ -17,16 +19,29 @@ const useStyles = makeStyles((theme)=>({
 }))
 
 const NewGame =()=>{
-    const classes = useStyles();
-    const [startDate, setStartDate] = React.useState(new Date(Date.now()))
+    const classes = useStyles()
+    
     const [state, setState] = React.useState({
+        startTime: new Date(Date.now()),
+        endTime: '',
+        results:'',
+        gameShortID: shortid.generate(),
         location:1,
     })
 
-    const handleStatus = (e) => {
+    const handleState = (e) => {
         const name = e.target.name
         setState({ ...state, [name]: e.target.value })
         console.log(state)
+    }
+    const handleStartTime = (date) => {
+        console.log(date)
+        
+    }
+
+    const handleNewGame = e =>{
+        console.log(state)
+        e.preventDefault()
     }
     return(
         
@@ -41,19 +56,24 @@ const NewGame =()=>{
                </Link>
                </Grid>
            </Grid>
+           <form onSubmit={handleNewGame}>
          <TextField
-            variant="outlined"
-            label="game"
+            variant="standard"
+            label="Game ID"
+            value={state.gameShortID}
+            readOnly
             fullWidth
             className={classes.space}
          />
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-         <KeyboardDateTimePicker
+         <DateTimePicker
             variant="inline"
             label="Start Time"
+            name="startTime"
+            margin="normal"
             ampm={false}
-            value={startDate}
-            onChange={setStartDate}
+            value={state.startTime}
+            onChange={handleStartTime}
             format="dd-mm-yyyy HH:mm"
             fullWidth
             className={classes.space}
@@ -65,7 +85,7 @@ const NewGame =()=>{
             <Select
                 native
                 value={state.location}
-                onChange={handleStatus}
+                onChange={handleState}
                 inputProps={{
                     name: 'location',
                     id: 'location-selector',
@@ -80,7 +100,8 @@ const NewGame =()=>{
                 <option value={3}>Kilo</option>
             </Select>
         </FormControl>
-        <Button component={Link} to="/game" className={classes.space} fullWidth color="primary">CREATE</Button>
+        <Button type="submit" className={classes.space} fullWidth color="primary">CREATE</Button>
+        </form>
 </Container>
     )
 

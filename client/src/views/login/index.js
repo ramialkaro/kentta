@@ -1,6 +1,7 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, CssBaseline, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid, Link } from '@material-ui/core'
+import { Container, CssBaseline, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid } from '@material-ui/core'
+import {Link} from 'react-router-dom'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 
 const useStyles = makeStyles((theme) => ({
@@ -74,10 +75,10 @@ const Login = () => {
 
                     <Grid container>
                         <Grid item xs>
-                            <Link href="/register" variant="body2">Forgot password?</Link>
+                            <Link to="/register" variant="body2">Forgot password?</Link>
                         </Grid>
                         <Grid item>
-                            <Link href="/register" variant="body2">{"Don't have an account? Sign up"}</Link>
+                            <Link to="/register" variant="body2">{"Don't have an account? Sign up"}</Link>
                         </Grid>
                     </Grid>
 

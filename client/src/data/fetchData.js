@@ -48,3 +48,10 @@ export function GetTeam(){
     }, [])
     return (teamData)
 }
+
+export function PostGame(values){
+
+    console.log(values)
+    apiFetch.post(`/game`, values)
+    .catch(err=>alert(err))
+}

@@ -1,7 +1,9 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, CssBaseline, Avatar, TextField, Typography, Grid, FormControlLabel, Checkbox, Button, Link } from '@material-ui/core'
+import { Container, CssBaseline, Avatar, TextField, Typography, Grid, FormControlLabel, Checkbox, Button } from '@material-ui/core'
+import { Link } from 'react-router-dom'
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -102,7 +104,7 @@ const Register = () => {
                     </Button>
                     <Grid container justify="flex-end">
                         <Grid item>
-                            <Link href="/" variant="body2">
+                            <Link to="/" variant="body2">
                                 Already have an account? Login
                             </Link>
                         </Grid>

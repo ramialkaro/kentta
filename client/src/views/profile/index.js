@@ -1,7 +1,9 @@
 import React from 'react'
-import { makeStyles } from '@material-ui/core/styles';
-import { Typography, Grid, Avatar,  TextField, Switch, FormControlLabel, InputLabel, Select,  FormControl, Container,  Link } from '@material-ui/core';
-import Lock from '@material-ui/icons/Lock';
+import { makeStyles } from '@material-ui/core/styles'
+import { Typography, Grid, Avatar,  TextField, Switch, FormControlLabel, InputLabel, Select,  FormControl, Container } from '@material-ui/core'
+import {Link} from 'react-router-dom'
+import Lock from '@material-ui/icons/Lock'
+
 const useStyles = makeStyles((theme) => ({
     root:{
         minHeight:'93vh'
@@ -53,8 +55,8 @@ const Profile = () => {
                 <Grid item xs={12} container alignItems="center" direction="row" justify="space-between" className={classes.avatar}>
                         <Avatar alt="player" src="player.png" className={classes.userImg}/>
 
-                        <Link href="/" color="primary"  className={classes.fab}>
-                            <Lock />
+                        <Link to="/"   className={classes.fab}>
+                            <Lock color="primary" />
                         </Link>
 
                 </Grid>
