@@ -1,19 +1,22 @@
 const mysql = require('./db')
-
+const dateformat = require('dateformat')
 // game contructor...
 
 const Game = function (game) {
-    this.ID = game.ID;
     this.startTime = game.startTime;
     this.endTime = game.endTime;
     this.results = game.results;
+    this.gameShortID = game.gameShortID,
+    this.location = game.location
 }
 
 
 // create new game
 
 Game.create = (newGame, result)=>{
-    mysql.query("INSERT INTO game SET ?", newGame, (err, res)=>{
+   
+   newGame.startTime = dateformat(newGame.startTime, "yyyy-mm-dd HH:MM:ss")
+       mysql.query("INSERT INTO game SET ?", newGame, (err, res)=>{
         if(err){
             console.log("error: ", err)
             result(err, null)
@@ -22,7 +25,7 @@ Game.create = (newGame, result)=>{
 
         console.log("created game: ", {id: res.insertId, ...newGame})
         result(null, {gameId: res.insertId, ...newGame})
-    })
+    })   
 }
 
 

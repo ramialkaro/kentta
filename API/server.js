@@ -17,8 +17,15 @@ app.get("/", (req, res) => {
 
 app.use((req, res, next) => {
     res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
     next();
-  });
+  })
+
+// to fix the 304 error code in the firefox, which its mean the cache-control has max-age of zero value
+  app.disable('etag')
+
+
+  
 require("./routes/player.routes")(app)
 require("./routes/game.routes")(app)
 require("./routes/team.routes")(app)

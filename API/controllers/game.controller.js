@@ -13,10 +13,9 @@ exports.create = (req, res)=>{
     // CREATE a game
     const game = new Game({
         startTime: req.body.startTime,
-        endTime: req.body.endTime,
-        teamId: req.body.teamId,
-        pitchId: req.body.pitchId,
-        results: req.body.results
+        results: req.body.results,
+        gameShortID : req.body.gameShortID,
+        location : req.body.location
     })
 
     Game.create(game, (err, data)=>{
