@@ -1,25 +1,20 @@
 const express = require("express")
 const bodyParser = require("body-parser")
-
+const cors = require('cors')
 
 const app = express()
 const PORT = 5000
+
+app.use(cors())
+
 // parse requests of content-type: application/json
 app.use(bodyParser.json())
 
 // parse requests of content-type: application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }))
 
-// simple route
-app.get("/", (req, res) => {
-    res.json({ messsage: "welcome to Kentta application." })
-})
 
-app.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin', '*');
-    res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
-    next();
-  })
+
 
 // to fix the 304 error code in the firefox, which its mean the cache-control has max-age of zero value
   app.disable('etag')
