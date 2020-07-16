@@ -23,7 +23,7 @@ Game.create = (newGame, result)=>{
             return
         }
 
-        console.log("created game: ", {id: res.insertId, ...newGame})
+        console.log("👉 created game: ", {id: res.insertId, ...newGame})
         result(null, {gameId: res.insertId, ...newGame})
     })   
 }

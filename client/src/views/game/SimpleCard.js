@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleCard = ({ color, data }) => {
     const classes = useStyles()
-    //let results = data.results.split(',')
+    let results = data.results.split(',')
     console.log(data.startTime)
     
     return (
@@ -55,7 +55,7 @@ const SimpleCard = ({ color, data }) => {
                     
                     <Typography variant="subtitle2">{data.gameShortID}</Typography>
                     
-                    <Typography className={classes.result}>{data.results || ' '}</Typography>
+                    <Typography className={classes.result}>{`${results[0]} X ${results[1]}` || ' '}</Typography>
                     
                 </Grid>
                 
@@ -75,7 +75,7 @@ const SimpleCard = ({ color, data }) => {
                 </Grid>
                 <Grid item container xs={12} >
                     <Grid item xs={4} className={classes.center}>
-                        <Typography variant="subtitle2">p.02 </Typography>
+                        <Typography variant="subtitle2">{data.location}</Typography>
                     </Grid>
                     
                     <Grid item xs={4} className={classes.center}>
