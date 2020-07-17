@@ -65,11 +65,11 @@ const TopBar = ({create}) =>{
             />
             </div>
             {create === true ? 
-            <Link to="/newgame">
-              <Button color="primary" size="small">
+            
+              <Button component={Link} to="/newgame" color="primary" size="small">
                 new
               </Button>
-            </Link>
+            
             : null }
             </Toolbar>
         </AppBar>

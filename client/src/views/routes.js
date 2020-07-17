@@ -7,8 +7,9 @@ import Register from './register'
 import Login from './login'
 import Game from './game'
 import NewGame from './game/NewGame'
-
+import GameDetails from './game/GameDetails'
 import BottomBar from '../components/BottomBar'
+
 const Routes =()=>{
     return(
         <Router>
@@ -17,7 +18,8 @@ const Routes =()=>{
                 <Route path ="/register" component={Register}/>
                 <Route path ="/profile" component={Profile}/>
                 <Route path ="/team" component={Team}/>
-                <Route path ="/game" component={Game}/>
+                <Route path ="/game" exact component={Game}/>
+                <Route path ="/game/:id" component={GameDetails}/>
                 <Route path ="/map" component={Map}/>
                 <Route path ="/newgame" component={NewGame} />
             </Switch>

@@ -1,29 +1,31 @@
 import React from 'react'
-import { Typography, Paper, Grid } from '@material-ui/core'
+import { Typography, Paper, Grid, Button, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
-import { SportsSoccer } from "@material-ui/icons"
 import Moment from 'react-moment'
-import ScheduleIcon from '@material-ui/icons/Schedule';
-
+import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
+import { Link } from 'react-router-dom'
+import SportsIcon from '@material-ui/icons/Sports';
 const useStyles = makeStyles((theme) => ({
     root: {
-        padding:'7px',
+        padding: '12pt',
         margin: '2pt 0 12pt 0',
-        fontFamily: 'Anton'        
+        fontFamily: 'Anton',
+        borderRadius: theme.spacing(5)
     },
-    center:{
+    center: {
         textAlign: 'center'
     },
 
-    time:{
+    time: {
         marginLeft: theme.spacing(2)
-    }, 
-    clock:{
-        fontSize:'14pt',
-        fontWeight:'900'
+    },
+    clock: {
+        fontSize: '14pt',
+        fontWeight: '900',
+        marginLeft: theme.spacing(2)
     },
     txt: {
-       
+
         fontSize: '14px',
         position: 'relative',
         color: '#222',
@@ -31,14 +33,13 @@ const useStyles = makeStyles((theme) => ({
     },
     result: {
         backgroundColor: '#222',
-        display: 'inline-box',
-        minWidth:'24pt',
-        minHeight:'12pt',
+        minWidth: '80%',
+        minHeight: '12pt',
         color: '#fff',
         fontSize: '17px',
-        padding: `2pt`,
-        textAlign:'center',
-        borderRadius:'2px'
+        padding: '3pt',
+        textAlign: 'center',
+        borderRadius: '5px'
     }
 }))
 
@@ -46,49 +47,30 @@ const SimpleCard = ({ color, data }) => {
     const classes = useStyles()
     let results = data.results.split(',')
     console.log(data.startTime)
-    
-    return (
-        <Paper className={classes.root} style={{backgroundColor: color}}>
-            <Grid container spacing={1}>
-                <Grid item container xs={12} justify="space-between" alignItems="center" direction="row">
-                    <SportsSoccer/>
-                    
-                    <Typography variant="subtitle2">{data.gameShortID}</Typography>
-                    
-                    <Typography className={classes.result}>{`${results[0]} X ${results[1]}` || ' '}</Typography>
-                    
-                </Grid>
-                
-                <Grid item container xs={12} className={classes.time}>
-                   <Grid item xs={7}>
-                        <Typography variant="body2" >
-                            {data.startTime !== undefined ? <Moment format="DD-MM-YYYY" date={data.startTime}/> : null}
-                        </Typography>
-                   </Grid>
-                   <Grid item xs={5} container direction="row" alignItems="center">
-                   <ScheduleIcon fontSize="small"/>
-                        <Typography variant="body2" className={classes.clock}>
-                        
-                        {data.startTime !== undefined ? <Moment format="HH:mm" date={data.startTime}/> : null}
-                        </Typography>
-                   </Grid>
-                </Grid>
-                <Grid item container xs={12} >
-                    <Grid item xs={4} className={classes.center}>
-                        <Typography variant="subtitle2">{data.location}</Typography>
-                    </Grid>
-                    
-                    <Grid item xs={4} className={classes.center}>
-                        <Typography variant="subtitle2">Viherlaakso</Typography>
-                    </Grid>
 
-                    <Grid item xs={4} className={classes.center}>
-                        <Typography variant="subtitle2">Espoo</Typography>
-                    </Grid>
+    return (
+        <Paper className={classes.root} style={{ backgroundColor: color }}>
+            <Grid container spacing={1}>
+                <Grid item xs={3} container justify="center">
+                    <SportsIcon color="inherit" fontSize="large" />
+                    <Typography className={classes.result}>{`${results[0]} X ${results[1]}` || ' '}</Typography>
+                </Grid>
+                <Grid item container xs={7} direction="column">
+
+                    <Typography variant="h6" component="h1">{data.gameShortID}</Typography>
+                    <Typography variant="body2" >
+                        {data.startTime !== undefined ? <Moment format="DD-MM-YYYY HH:mm" date={data.startTime} /> : null}
+                    </Typography>
+                </Grid>
+                <Grid item container xs={2} alignItems="center" justify="center">
+                    <IconButton component={Link} to={`/game/${data.gameShortID}`}>
+                        <ArrowForwardIosIcon />
+                    </IconButton>
+
                 </Grid>
             </Grid>
         </Paper>
-        
+
     )
 }
 
