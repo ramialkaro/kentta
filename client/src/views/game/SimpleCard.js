@@ -1,10 +1,14 @@
 import React from 'react'
-import { Typography, Paper, Grid, Button, IconButton } from '@material-ui/core'
+import { Typography, Paper, Grid, IconButton } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import Moment from 'react-moment'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import { Link } from 'react-router-dom'
-import SportsIcon from '@material-ui/icons/Sports';
+import SportsIcon from '@material-ui/icons/Sports'
+
+import Icon from './Icons'
+
+
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: '12pt',
@@ -52,7 +56,7 @@ const SimpleCard = ({ color, data }) => {
         <Paper className={classes.root} style={{ backgroundColor: color }}>
             <Grid container spacing={1}>
                 <Grid item xs={3} container justify="center">
-                    <SportsIcon color="inherit" fontSize="large" />
+                    <Icon type={data.gameType} color="inherit" fontSize="large" />
                     <Typography className={classes.result}>{`${results[0]} X ${results[1]}` || ' '}</Typography>
                 </Grid>
                 <Grid item container xs={7} direction="column">
@@ -63,7 +67,7 @@ const SimpleCard = ({ color, data }) => {
                     </Typography>
                 </Grid>
                 <Grid item container xs={2} alignItems="center" justify="center">
-                    <IconButton component={Link} to={`/game/${data.gameShortID}`}>
+                    <IconButton component={Link} to={`/game/${data.ID}`}>
                         <ArrowForwardIosIcon />
                     </IconButton>
 

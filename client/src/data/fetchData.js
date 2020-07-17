@@ -17,6 +17,20 @@ export function GetGames(){
     return (gameData)
 }
 
+export function GetGame(id){
+    const [game, setGame] = React.useState([])
+
+    React.useEffect(()=>{
+        apiFetch.get(`/game/${id}`)
+        .then(response=>setGame(response.data))
+        .catch(err=>{
+            if(err){
+                console.log(err)
+            }
+        })
+    },[id])
+    return (game)
+}
 
 export function GetPlayer(){
     const [playerData, setPlayerData] = React.useState([])
