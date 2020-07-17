@@ -2,7 +2,7 @@ import React from 'react'
 import apiFetch from '../lib/apiFetch'
 
 
-export function GetGame(){
+export function GetGames(){
     const [gameData, setGameData] = React.useState([])
 
     React.useEffect(()=>{

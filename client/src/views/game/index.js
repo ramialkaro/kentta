@@ -3,7 +3,7 @@ import {Container} from '@material-ui/core'
 import SimpleCard from './SimpleCard'
 import { makeStyles } from '@material-ui/core/styles'
 import {color} from "./colors"
-import {GetGame} from '../../data/fetchData'
+import {GetGames} from '../../data/fetchData'
 import {uid} from 'react-uid'
 import shortid from 'shortid'
 import TopBar from '../../components/TopBar'
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Game = ()=> {
     const classes = useStyles()
-    var gameData = GetGame()
+    var gameData = GetGames()
     let totalColor = color.length
     console.log(shortid.generate())
     
