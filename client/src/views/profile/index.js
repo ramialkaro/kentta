@@ -1,19 +1,20 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Typography, Grid, Avatar,  TextField, Switch, FormControlLabel, InputLabel, Select,  FormControl, Container } from '@material-ui/core'
-import {Link} from 'react-router-dom'
+import { Typography, Grid, Avatar, TextField, Switch, FormControlLabel, InputLabel, Select, FormControl, Container } from '@material-ui/core'
+import { Link, Redirect } from 'react-router-dom'
 import Lock from '@material-ui/icons/Lock'
+import { useAuth } from '../../context/auth'
 
 const useStyles = makeStyles((theme) => ({
-    root:{
-        minHeight:'93vh'
+    root: {
+        minHeight: '93vh'
     },
-    title:{
-        padding:theme.spacing(3),
+    title: {
+        padding: theme.spacing(3),
         marginBottom: theme.spacing(4)
     },
     avatar: {
-        textAlign:'center'
+        textAlign: 'center'
     },
     userImg: {
         width: theme.spacing(9),
@@ -22,9 +23,9 @@ const useStyles = makeStyles((theme) => ({
         marginLeft: '45%'
 
     },
-    fab:{
+    fab: {
         borderRadius: '50vw',
-        paddingRight:theme.spacing(1)
+        paddingRight: theme.spacing(1)
     }
 }));
 
@@ -34,9 +35,11 @@ const Profile = () => {
     const [state, setState] = React.useState({
         online: true,
         playerStatus: 'going',
-        myTeam:1,
-        readOnly:true
+        myTeam: 1,
+        readOnly: true
     })
+    const { setAuthTokens } = useAuth()
+
     const handleChange = (e) => {
         const name = e.target.name
         setState({ ...state, [name]: e.target.checked })
@@ -47,93 +50,101 @@ const Profile = () => {
         setState({ ...state, [name]: e.target.value })
         console.log(state)
     }
+    const logOut = () => {
+        setAuthTokens()
+        setTimeout(()=>{
+            return <Redirect to="/"/>
+        },200)
+        localStorage.removeItem("tokens")
+    }
+    
     return (
-       <Container className={classes.root}>
+        <Container className={classes.root}>
 
             <Grid container spacing={3} className={classes.title}>
 
                 <Grid item xs={12} container alignItems="center" direction="row" justify="space-between" className={classes.avatar}>
-                        <Avatar alt="player" src="player.png" className={classes.userImg}/>
+                    <Avatar alt="player" src="player.png" className={classes.userImg} />
 
-                        <Link to="/"   className={classes.fab}>
-                            <Lock color="primary" />
-                        </Link>
+                    <Link to="/" onClick={logOut} className={classes.fab}>
+                        <Lock color="primary" />
+                    </Link>
 
                 </Grid>
                 <Grid item container xs={12} direction="column" alignItems="center">
                     <Typography variant="h4" component="h2">Player name</Typography>
                     <Typography variant="subtitle1" component="p">Player Bio </Typography>
                 </Grid>
-                
+
             </Grid>
 
-                <Container>
-                    <TextField
-                            label="Phone"
-                            readOnly={state.readOnly}
-                            value="040 120 1212"
-                            name="phone"
-                            fullWidth
-                            margin="normal"
-                            variant="outlined"
-                        />
-                        <TextField
-                            label="Email"
-                            readOnly={state.readOnly}
-                            value="info@test.fi"
-                            name="email"
-                            fullWidth
-                            margin="normal"
-                            variant="outlined"
-                        />
+            <Container>
+                <TextField
+                    label="Phone"
+                    readOnly={state.readOnly}
+                    value="040 120 1212"
+                    name="phone"
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                />
+                <TextField
+                    label="Email"
+                    readOnly={state.readOnly}
+                    value="info@test.fi"
+                    name="email"
+                    fullWidth
+                    margin="normal"
+                    variant="outlined"
+                />
 
-                        <FormControl variant="filled" fullWidth>
-                            <InputLabel htmlFor="myTeam-selector">My Team</InputLabel>
-                            <Select
-                                native
-                                value={state.myTeam}
-                                onChange={handleStatus}
-                                inputProps={{
-                                    name: 'myTeam',
-                                    id: 'myTeam-selector',
-                                    margin:"normal",
-                                }}
-                                fullWidth
-                                
-                            >
-                                <option value={1}>Team AA</option>
-                                <option value={2}>Team BB</option>
-                                <option value={3}>Team CC</option>
-                            </Select>
-                        </FormControl>
+                <FormControl variant="filled" fullWidth>
+                    <InputLabel htmlFor="myTeam-selector">My Team</InputLabel>
+                    <Select
+                        native
+                        value={state.myTeam}
+                        onChange={handleStatus}
+                        inputProps={{
+                            name: 'myTeam',
+                            id: 'myTeam-selector',
+                            margin: "normal",
+                        }}
+                        fullWidth
 
-                        <FormControlLabel
-                            control={<Switch checked={state.online} onChange={handleChange} color="primary" name="online" />}
-                            label="Online"
-                        />
+                    >
+                        <option value={1}>Team AA</option>
+                        <option value={2}>Team BB</option>
+                        <option value={3}>Team CC</option>
+                    </Select>
+                </FormControl>
 
-                        <FormControl variant="filled" fullWidth> 
-                            <InputLabel htmlFor="status-selector">Status</InputLabel>
-                            <Select
-                                native
-                                value={state.playerStatus}
-                                onChange={handleStatus}
-                                inputProps={{
-                                    name: 'playerStatus',
-                                    id: 'status-selector',
-                                    margin:"normal",
-                                }}
-                                
-                                
-                            >
-                                <option value="going">Going</option>
-                                <option value="notInterested">Not interested</option>
-                                <option value="maybe">Maybe</option>
-                            </Select>
-                        </FormControl>
-                </Container>
-            
-       </Container>
+                <FormControlLabel
+                    control={<Switch checked={state.online} onChange={handleChange} color="primary" name="online" />}
+                    label="Online"
+                />
+
+                <FormControl variant="filled" fullWidth>
+                    <InputLabel htmlFor="status-selector">Status</InputLabel>
+                    <Select
+                        native
+                        value={state.playerStatus}
+                        onChange={handleStatus}
+                        inputProps={{
+                            name: 'playerStatus',
+                            id: 'status-selector',
+                            margin: "normal",
+                        }}
+
+
+                    >
+                        <option value="going">Going</option>
+                        <option value="notInterested">Not interested</option>
+                        <option value="maybe">Maybe</option>
+                    </Select>
+                </FormControl>
+            </Container>
+
+        </Container>
     );
 }
 export default Profile                    

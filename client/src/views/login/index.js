@@ -1,8 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, CssBaseline, Avatar, Typography, TextField, FormControlLabel, Checkbox, Button, Grid } from '@material-ui/core'
-import {Link} from 'react-router-dom'
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import { Link, Redirect } from 'react-router-dom'
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
+import { useAuth } from '../../context/auth'
+import apiFetch from '../../lib/apiFetch'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -24,8 +26,37 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const Login = () => {
-    const classes = useStyles();
+const Login = (props) => {
+
+    const classes = useStyles()
+    
+    const [isLoggedIn, setLoggedIn] = React.useState(false)
+    const [isError, setError] = React.useState(false)
+    const { setAuthTokens } = useAuth()
+    const [email, setEmail] = React.useState("")
+    const [password, setPassword] = React.useState("")
+    function postLogin() {
+        apiFetch.post("/login", {
+            email,
+            password
+        }).then(result => {
+            if(result.status === 200){
+                setAuthTokens(result.data)
+                console.log(result.data)
+                setLoggedIn(true)
+            } else{
+                setError(true)
+            }
+        }).catch(e =>{
+            setError(true)
+        })
+    }
+    
+    
+    if(isLoggedIn){
+        return <Redirect to="/game"/>
+    }
+
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -35,7 +66,7 @@ const Login = () => {
                 </Avatar>
                 <Typography component="h1" variant="h5">Log in</Typography>
 
-                <form className={classes.form} noValidate>
+                <form className={classes.form} >
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -45,8 +76,9 @@ const Login = () => {
                         label="Email address"
                         name="email"
                         autoComplete="email"
+                        onChange={e => setEmail(e.target.value)}
                         autoFocus
-                    />
+                        />
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -56,19 +88,19 @@ const Login = () => {
                         label="Password"
                         name="password"
                         type="password"
+                        onChange={e => setPassword(e.target.value)}
                         autoComplete="current-password"
-                    />
+                        />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"
                     />
                     <Button
-                        type="sumit"
                         fullWidth
                         variant="contained"
                         color="primary"
                         className={classes.submit}
-                        onClick={()=><Link href="/game"/>}
+                        onClick={postLogin}
                     >
                         Log in
                     </Button>

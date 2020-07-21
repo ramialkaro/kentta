@@ -1,5 +1,5 @@
 import React from 'react'
-import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
 import Profile from './profile'
 import Team from './team'
 import Map from './map'
@@ -9,22 +9,41 @@ import Game from './game'
 import NewGame from './game/NewGame'
 import GameDetails from './game/GameDetails'
 import BottomBar from '../components/BottomBar'
+import { useAuth } from '../context/auth'
 
-const Routes =()=>{
-    return(
+const SecureRoute = ({ component: Component, ...rest }) => {
+    const {authTokens} = useAuth()
+    return (
+        <Route
+            {...rest}
+            render={props =>
+                authTokens ?
+                    (
+                        <Component {...props} />
+                    ) : (
+                        <Redirect
+                            to="/"
+                        />
+                    )} />
+    )
+}
+
+
+const Routes = () => {
+    return (
         <Router>
             <Switch>
-                <Route path ="/" exact component={Login}/>
-                <Route path ="/register" component={Register}/>
-                <Route path ="/profile" component={Profile}/>
-                <Route path ="/team" component={Team}/>
-                <Route path ="/game" exact component={Game}/>
-                <Route path ="/game/:id" component={GameDetails}/>
-                <Route path ="/map" component={Map}/>
-                <Route path ="/newgame" component={NewGame} />
+                <Route path="/" exact component={Login} />
+                <Route path="/register" component={Register} />
+                <SecureRoute path="/profile" component={Profile} />
+                <SecureRoute path="/team" component={Team} />
+                <SecureRoute path="/game" exact component={Game} />
+                <SecureRoute path="/game/:id" component={GameDetails} />
+                <SecureRoute path="/map" component={Map} />
+                <SecureRoute path="/newgame" component={NewGame} />
             </Switch>
-            
-      <BottomBar />
+
+            <BottomBar />
         </Router>
     )
 }
