@@ -1,9 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
 import { Container, CssBaseline, Avatar, TextField, Typography, Grid, FormControlLabel, Checkbox, Button } from '@material-ui/core'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
-
+import apiFetch from '../../lib/apiFetch'
+import { useAuth } from '../../context/auth'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -27,6 +28,37 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = () => {
     const classes = useStyles()
+    const [firstName, setFirstName] = React.useState('')
+    const [lastName, setLastName] = React.useState('')
+    const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
+    const { setAuthTokens } = useAuth()
+    const [isLoggedIn, setLoggedIn] = React.useState(false)
+    const [isError, setError] = React.useState(false)
+    const hamdleRegister = () => {
+        let values ={
+            name: firstName+lastName,
+            email,
+            password
+        }
+        console.log(values)
+
+        apiFetch.post('/signup',values)
+        .then(result => {
+            if(result.status === 200){
+                setAuthTokens(result.data)
+                console.log(result.data)
+                setLoggedIn(true)
+            } else{
+                setError(true)
+            }
+        }).catch(e =>{
+            setError(true)
+        })
+    }
+    if(isLoggedIn){
+        return <Redirect to="/game"/>
+    }
     return (
         <Container component="main" maxWidth="xs">
             <CssBaseline />
@@ -47,6 +79,7 @@ const Register = () => {
                                 autoComplete="fname"
                                 id="firstName"
                                 label="First Name"
+                                onChange={e=>setFirstName(e.target.value)}
                                 autoFocus
                             />
                         </Grid>
@@ -59,6 +92,7 @@ const Register = () => {
                                 autoComplete="lname"
                                 id="lastName"
                                 label="Last Name"
+                                onChange={e=>setLastName(e.target.value)}
                                 autoFocus
                             />
                         </Grid>
@@ -71,6 +105,7 @@ const Register = () => {
                                 autoComplete="email"
                                 id="email"
                                 label="Email address"
+                                onChange={e=>setEmail(e.target.value)}
                                 autoFocus
                             />
                         </Grid>
@@ -84,6 +119,7 @@ const Register = () => {
                                 autoComplete="current-password"
                                 id="password"
                                 label="Password"
+                                onChange={e=>setPassword(e.target.value)}
                                 autoFocus
                             />
                         </Grid>
@@ -95,7 +131,7 @@ const Register = () => {
                         </Grid>
                     </Grid>
                     <Button
-                        type="submit"
+                        onClick={hamdleRegister}
                         fullWidth
                         color="primary"
                         className={classes.submit}

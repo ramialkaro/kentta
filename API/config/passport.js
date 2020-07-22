@@ -1,5 +1,5 @@
 const LocalStrategy = require('passport-local').Strategy
-
+const bcrypt = require ('bcrypt')
 const mysql = require('../models/db')
 const Player = require('../models/player.model')
 
@@ -27,8 +27,11 @@ module.exports = function (passport) {
         passwordField: 'password',
         passReqToCallback: true
     },
-        function (req, email, password, done) {
-            mysql.query("select * from player where email = ? ", email, function (err, rows) {
+        async function (req, email, password, done) {
+            let hashPassword =await function( password){
+                return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null)
+            }
+            mysql.query("select * from player where email = ? ", email,function (err, rows) {
                 console.log(req.sessionID)
                 console.log(rows)
                 console.log("Above is the taken object")
@@ -37,14 +40,15 @@ module.exports = function (passport) {
                 if (rows.length) {
                     return done(null, false, req.flash('signupMessage','That email is already is taken.'))
                 } else {
+                   let userPassword = hashPassword(password)
                     let player = new Player({
                         name: req.body.name,
                         email: req.body.email,
-                        password: req.body.password
+                        password: userPassword
                     })
 
                     player.name = "testing__passport"
-                    var insertQuery = `INSERT INTO player (email, password) values ("${email}", "${password}")`
+                    var insertQuery = `INSERT INTO player (email, password) values ("${player.email}", "${player.password}")`
                     mysql.query(insertQuery, function (err, rows) {
                         player.ID = rows.insertId
                         console.log(rows)

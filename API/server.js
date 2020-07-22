@@ -35,7 +35,7 @@ initializePassport(passport)
 app.use(passport.initialize())
 app.use(passport.session())
 
-app.post('/signup', passport.authenticate('local-signup', { failureFlash: true }))
+app.post('/signup', passport.authenticate('local-signup', { failureFlash: true,successFlash:true, successRedirect:'/game' }))
 app.post('/login', passport.authenticate('local-login', { failureFlash: true,successFlash:true, successRedirect:'/game' }))
 app.get('/logout', function (req, res) {
   console.log('Log Out Route')
