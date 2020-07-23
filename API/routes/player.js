@@ -1,19 +1,23 @@
+require('dotenv').config()
 const express = require('express')
 const bcrypt = require('bcrypt')
 const router = express.Router()
-
+const jwt = require('jsonwebtoken')
+const { withJWTAuthMiddleware } = require('express-kun')
 const queries = require('../db/queries')
 
+const protectedRouter = withJWTAuthMiddleware(router, process.env.JWT_SECRET)
 
 // Retrieve all players form database
 
-router.get('/player', async (req, res) => {
+protectedRouter.get('/player', async (req, res) => {
     try {
         const players = await queries
             .player
             .getAll()
         if (players) {
-            res.status(200).json(players)
+            const token = jwt.sign({ player }, process.env.JWT_SECRET, { expiresIn: "24h" })
+            res.status(200).json({players, token})
         } else {
             res.status(404).json({ msg: "Players not found" })
         }
@@ -32,7 +36,8 @@ router.post('/login', async (req, res) => {
         if (player) {
             bcrypt.compare(req.body.password, player.password, (err, result) => {
                 if (result === true) {
-                    res.status(200).json(player)
+                    const token = jwt.sign({ player }, process.env.JWT_SECRET, { expiresIn: "24h" })
+                    res.status(200).json({ player, token, msg: "login" })
                     console.log("logged")
                 } else {
                     res.status(401).json({ msg: "unauthorized" })
@@ -50,22 +55,23 @@ router.post('/login', async (req, res) => {
 // Register a player and save it to database
 
 router.post('/register', async (req, res) => {
-
+    
     const salt = await bcrypt.genSaltSync(10)
     const hash = await bcrypt.hashSync(req.body.password, salt)
     req.body.password = hash
     try {
         const existPlayer = await queries
-            .player
-            .getOne(req.body.email)
+        .player
+        .getOne(req.body.email)
         if (!existPlayer) {
             const newPlayer = await queries
-                .player
-                .create(req.body)
+            .player
+            .create(req.body)
             if (newPlayer) {
-                res.status(200).json(newPlayer)
+                const token = jwt.sign({ newPlayer }, process.env.JWT_SECRET, { expiresIn: "24h" })
+                res.status(200).json({ newPlayer, token, msg: "login" })
             }
-            
+
         } else {
             res.status(404).json({ msg: "already email used, try another one." })
         }
@@ -77,7 +83,7 @@ router.post('/register', async (req, res) => {
 
 // Update a player and save it to database 
 
-router.put('/player/:id', async (req, res) => {
+protectedRouter.put('/player/:id', async (req, res) => {
     try {
         const player = await queries
             .player
@@ -95,7 +101,7 @@ router.put('/player/:id', async (req, res) => {
 
 // Delete a player from database
 
-router.delete('/player/:id', async (req, res) => {
+protectedRouter.delete('/player/:id', async (req, res) => {
     try {
         const deletedPlayer = await queries
             .player

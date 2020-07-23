@@ -55,7 +55,7 @@ const Profile = () => {
         setTimeout(() => {
             return <Redirect to="/" />
         }, 200)
-        localStorage.removeItem("tokens")
+        localStorage.removeItem("token")
     }
     return (
         <Container className={classes.root}>

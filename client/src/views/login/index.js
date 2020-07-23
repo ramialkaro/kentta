@@ -29,7 +29,8 @@ const useStyles = makeStyles((theme) => ({
 const Login = (props) => {
 
     const classes = useStyles()
-    
+
+
     const [isLoggedIn, setLoggedIn] = React.useState(false)
     const [isError, setError] = React.useState(false)
     const { setAuthTokens } = useAuth()
@@ -40,23 +41,23 @@ const Login = (props) => {
             email,
             password
         }).then(result => {
-            if(result.status === 200){
-                setAuthTokens(result.data)
+            if (result.status === 200) {
+                setAuthTokens(result.data.token)
                 console.log(result.data)
                 setLoggedIn(true)
-            } else{
+            } else {
                 setError(true)
             }
-        }).catch(e =>{
+        }).catch(e => {
             setError(true)
         })
     }
-    
-    if(isError){
-        return<h3>Error...</h3>
+
+    if (isError) {
+        return <h3>Error...</h3>
     }
-    if(isLoggedIn){
-        return <Redirect to="/game"/>
+    if (isLoggedIn) {
+        return <Redirect to="/game" />
     }
 
     return (
@@ -80,7 +81,7 @@ const Login = (props) => {
                         autoComplete="email"
                         onChange={e => setEmail(e.target.value)}
                         autoFocus
-                        />
+                    />
                     <TextField
                         variant="outlined"
                         margin="normal"
@@ -92,7 +93,7 @@ const Login = (props) => {
                         type="password"
                         onChange={e => setPassword(e.target.value)}
                         autoComplete="current-password"
-                        />
+                    />
                     <FormControlLabel
                         control={<Checkbox value="remember" color="primary" />}
                         label="Remember me"

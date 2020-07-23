@@ -1,11 +1,17 @@
+require('dotenv').config()
 const express = require('express')
 const router = express.Router()
 const queries = require('../db/queries')
+const { withJWTAuthMiddleware } = require('express-kun')
+const protectedRouter = withJWTAuthMiddleware(router, process.env.JWT_SECRET)
 
 
 // TODO: Retrieve all games from database
-router.get('/game', async (req, res) => {
+protectedRouter.get('/game', async (req, res) => {
     try {
+        res.cookie('foo','bar',{
+            sameSite:true
+        })
         const games = await queries
             .game
             .getAll()
@@ -21,7 +27,7 @@ router.get('/game', async (req, res) => {
 
 
 // TODO: Retrieve a single game from database using id
-router.get('/game/:id', async (req, res) => {
+protectedRouter.get('/game/:id', async (req, res) => {
     try {
         const game = await queries
             .game
@@ -38,7 +44,7 @@ router.get('/game/:id', async (req, res) => {
 })
 
 // TODO: Created a game 
-router.post('/game', async (req, res) => {
+protectedRouter.post('/game', async (req, res) => {
     try {
         const newGame = await queries
             .game
@@ -55,7 +61,7 @@ router.post('/game', async (req, res) => {
 
 
 // TODO: update a single game by the id
-router.put('/game/:id', async (req, res) => {
+protectedRouter.put('/game/:id', async (req, res) => {
     try {
         const existGame = await queries
             .game
@@ -76,7 +82,7 @@ router.put('/game/:id', async (req, res) => {
 })
 
 // TODO: delete a single game by the id
-router.delete('/game/:id', async (req, res) => {
+protectedRouter.delete('/game/:id', async (req, res) => {
     try {
         const existGame = await queries
             .game

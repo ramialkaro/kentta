@@ -1,12 +1,14 @@
 import React from 'react'
 import apiFetch from '../lib/apiFetch'
-
+import { useAuth } from '../context/auth'
 
 export function GetGames() {
     const [gameData, setGameData] = React.useState([])
+    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
+    const header = { headers: { 'Authorization': token } }
 
     React.useEffect(() => {
-        apiFetch.get('/game')
+        apiFetch.get('/game', header)
             .then(response => setGameData(response.data))
             .catch(err => {
                 if (err) {
@@ -19,9 +21,10 @@ export function GetGames() {
 
 export function GetGame(id) {
     const [game, setGame] = React.useState([])
-
+    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
+    const header = { headers: { 'Authorization': token } }
     React.useEffect(() => {
-        apiFetch.get(`/game/${id}`)
+        apiFetch.get(`/game/${id}`, header)
             .then(response => setGame(response.data))
             .catch(err => {
                 if (err) {
@@ -34,9 +37,11 @@ export function GetGame(id) {
 
 export function GetPlayer() {
     const [playerData, setPlayerData] = React.useState([])
+    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
+    const header = { headers: { 'Authorization': token }}
 
     React.useEffect(() => {
-        apiFetch.get('/player')
+        apiFetch.get('/player', header)
             .then(response => setPlayerData(response.data))
             .catch(err => {
                 if (err) {
@@ -50,9 +55,11 @@ export function GetPlayer() {
 
 export function GetTeam() {
     const [teamData, setTeamData] = React.useState([])
+    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
+    const header = { headers: { 'Authorization': token }}
 
     React.useEffect(() => {
-        apiFetch.get('/team')
+        apiFetch.get('/team', header)
             .then(response => setTeamData(response.data))
             .catch(err => {
                 if (err) {
@@ -71,15 +78,17 @@ export function PostGame(values) {
 
 export function GetMapKey() {
     const [apiKey, setApiKey] = React.useState('')
+    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
+    const header = { headers: { 'Authorization': token }}
 
     React.useEffect(() => {
-        apiFetch.get('/map')
+        apiFetch.get('/map', header)
             .then(response => setApiKey(response.data))
             .catch(err => {
-                if(err){
+                if (err) {
                     console.log(err)
                 }
             })
     }, [])
-    return (apiKey)    
+    return (apiKey)
 }

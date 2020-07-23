@@ -48,7 +48,7 @@ const Register = () => {
         apiFetch.post('/register', values)
             .then(result => {
                 if (result.status === 200) {
-                    setAuthTokens(result.data)
+                    setAuthTokens(result.data.token)
                     console.log(result.data)
                     setLoggedIn(true)
                 } else {

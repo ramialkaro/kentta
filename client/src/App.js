@@ -7,12 +7,17 @@ import { AuthContext } from './context/auth'
 
 function App() {
 
-  const existingTokens = JSON.parse(localStorage.getItem("tokens"))
+
+  const existingTokens = JSON.parse(localStorage.getItem("token"))
   const [authTokens, setAuthTokens] = React.useState(existingTokens)
 
   const setTokens = (data) => {
-    localStorage.setItem("tokens", JSON.stringify(data))
+    localStorage.setItem("token", JSON.stringify(data))
     setAuthTokens(data)
+  }
+  
+  window.onbeforeunload= ()=>{
+    localStorage.removeItem("token")
   }
 
   return (
