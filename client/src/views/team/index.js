@@ -27,7 +27,7 @@ const Team = () => {
                    playerData.map(player=>{
                        
                     return(
-                        <SimpleCard key={player.ID}  data={player}/>
+                        <SimpleCard key={player.id}  data={player}/>
                     )})
                }
 

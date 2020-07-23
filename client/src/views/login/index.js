@@ -52,7 +52,9 @@ const Login = (props) => {
         })
     }
     
-    
+    if(isError){
+        return<h3>Error...</h3>
+    }
     if(isLoggedIn){
         return <Redirect to="/game"/>
     }

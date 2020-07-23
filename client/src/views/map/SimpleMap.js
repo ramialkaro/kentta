@@ -1,10 +1,10 @@
 import React from 'react'
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
-import dotenv from 'dotenv'
-dotenv.config()
+
+import {GetMapKey} from '../../data/fetchData'
 
 
-var GOOGLE_API_KEY = process.env.GOOGLE_API_KEY
+const GOOGLE_API_KEY = ''
 export class SimpleMap extends React.Component {
 
    
@@ -70,5 +70,3 @@ export class SimpleMap extends React.Component {
 export default GoogleApiWrapper({
     apiKey: (GOOGLE_API_KEY)
 })(SimpleMap)
-
-// 'AIzaSyAAVS-q5aDD3E4NsZxJojdXfR-eLBe7-oY'

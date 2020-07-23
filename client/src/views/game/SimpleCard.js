@@ -4,7 +4,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import Moment from 'react-moment'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
 import { Link } from 'react-router-dom'
-import SportsIcon from '@material-ui/icons/Sports'
 
 import Icon from './Icons'
 
@@ -49,7 +48,6 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleCard = ({ color, data }) => {
     const classes = useStyles()
-    let results = data.results.split(',')
     console.log(data.startTime)
 
     return (
@@ -57,7 +55,7 @@ const SimpleCard = ({ color, data }) => {
             <Grid container spacing={1}>
                 <Grid item xs={3} container justify="center">
                     <Icon type={data.gameType} color="inherit" fontSize="large" />
-                    <Typography className={classes.result}>{`${results[0]} X ${results[1]}` || ' '}</Typography>
+                    <Typography className={classes.result}>{data.results || ' '}</Typography>
                 </Grid>
                 <Grid item container xs={7} direction="column">
 
@@ -67,7 +65,7 @@ const SimpleCard = ({ color, data }) => {
                     </Typography>
                 </Grid>
                 <Grid item container xs={2} alignItems="center" justify="center">
-                    <IconButton component={Link} to={`/game/${data.ID}`}>
+                    <IconButton component={Link} to={`/game/${data.id}`}>
                         <ArrowForwardIosIcon />
                     </IconButton>
 

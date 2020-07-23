@@ -81,7 +81,7 @@ router.delete('/game/:id', async (req, res) => {
         const existGame = await queries
             .game
             .getOne(req.params.id)
-        if (existGame) {
+        if (existGame) { 
             const deletedGame = await queries
                 .game
                 .delete(req.params.id)

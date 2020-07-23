@@ -38,7 +38,7 @@ const Profile = () => {
         myTeam: 1,
         readOnly: true
     })
-    const { setAuthTokens } = useAuth()
+    const { authTokens, setAuthTokens } = useAuth()
 
     const handleChange = (e) => {
         const name = e.target.name
@@ -52,12 +52,11 @@ const Profile = () => {
     }
     const logOut = () => {
         setAuthTokens()
-        setTimeout(()=>{
-            return <Redirect to="/"/>
-        },200)
+        setTimeout(() => {
+            return <Redirect to="/" />
+        }, 200)
         localStorage.removeItem("tokens")
     }
-    
     return (
         <Container className={classes.root}>
 
@@ -72,7 +71,7 @@ const Profile = () => {
 
                 </Grid>
                 <Grid item container xs={12} direction="column" alignItems="center">
-                    <Typography variant="h4" component="h2">Player name</Typography>
+                    <Typography variant="h4" component="h2">{authTokens.name}</Typography>
                     <Typography variant="subtitle1" component="p">Player Bio </Typography>
                 </Grid>
 
@@ -82,7 +81,7 @@ const Profile = () => {
                 <TextField
                     label="Phone"
                     readOnly={state.readOnly}
-                    value="040 120 1212"
+                    value={authTokens.phone}
                     name="phone"
                     fullWidth
                     margin="normal"
@@ -91,7 +90,7 @@ const Profile = () => {
                 <TextField
                     label="Email"
                     readOnly={state.readOnly}
-                    value="info@test.fi"
+                    value={authTokens.email}
                     name="email"
                     fullWidth
                     margin="normal"

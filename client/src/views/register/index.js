@@ -30,34 +30,39 @@ const Register = () => {
     const classes = useStyles()
     const [firstName, setFirstName] = React.useState('')
     const [lastName, setLastName] = React.useState('')
+    const [phone, setPhone] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const { setAuthTokens } = useAuth()
     const [isLoggedIn, setLoggedIn] = React.useState(false)
     const [isError, setError] = React.useState(false)
     const hamdleRegister = () => {
-        let values ={
-            name: firstName+lastName,
+        let values = {
+            name: firstName + lastName,
             email,
-            password
+            password,
+            phone
         }
         console.log(values)
 
-        apiFetch.post('/signup',values)
-        .then(result => {
-            if(result.status === 200){
-                setAuthTokens(result.data)
-                console.log(result.data)
-                setLoggedIn(true)
-            } else{
+        apiFetch.post('/register', values)
+            .then(result => {
+                if (result.status === 200) {
+                    setAuthTokens(result.data)
+                    console.log(result.data)
+                    setLoggedIn(true)
+                } else {
+                    setError(true)
+                }
+            }).catch(e => {
                 setError(true)
-            }
-        }).catch(e =>{
-            setError(true)
-        })
+            })
     }
-    if(isLoggedIn){
-        return <Redirect to="/game"/>
+    if(isError){
+        return <h3>Error...</h3>
+    }
+    if (isLoggedIn) {
+        return <Redirect to="/game" />
     }
     return (
         <Container component="main" maxWidth="xs">
@@ -79,7 +84,7 @@ const Register = () => {
                                 autoComplete="fname"
                                 id="firstName"
                                 label="First Name"
-                                onChange={e=>setFirstName(e.target.value)}
+                                onChange={e => setFirstName(e.target.value)}
                                 autoFocus
                             />
                         </Grid>
@@ -92,7 +97,20 @@ const Register = () => {
                                 autoComplete="lname"
                                 id="lastName"
                                 label="Last Name"
-                                onChange={e=>setLastName(e.target.value)}
+                                onChange={e => setLastName(e.target.value)}
+                                autoFocus
+                            />
+                        </Grid>
+                        <Grid item xs={12} sm={6}>
+                            <TextField
+                                variant="outlined"
+                                required
+                                fullWidth
+                                name="phone"
+                                autoComplete="phone"
+                                id="phone"
+                                label="Phone"
+                                onChange={e => setPhone(e.target.value)}
                                 autoFocus
                             />
                         </Grid>
@@ -105,7 +123,7 @@ const Register = () => {
                                 autoComplete="email"
                                 id="email"
                                 label="Email address"
-                                onChange={e=>setEmail(e.target.value)}
+                                onChange={e => setEmail(e.target.value)}
                                 autoFocus
                             />
                         </Grid>
@@ -119,7 +137,7 @@ const Register = () => {
                                 autoComplete="current-password"
                                 id="password"
                                 label="Password"
-                                onChange={e=>setPassword(e.target.value)}
+                                onChange={e => setPassword(e.target.value)}
                                 autoFocus
                             />
                         </Grid>

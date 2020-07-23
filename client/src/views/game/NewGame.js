@@ -9,7 +9,7 @@ import shortid from 'shortid'
 import { PostGame } from '../../data/fetchData'
 import { Formik, Form } from 'formik'
 import MuiAlert from '@material-ui/lab/Alert'
-
+import moment from 'moment'
 
 function Alert(props) {
     return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -35,6 +35,9 @@ const NewGame = () => {
     }
     const handleNewGame = (values, actions) => {
         setOpen(true)
+        console.log(values)
+        values.startTime = moment(values.startTime).utc().format().replace('T',' ').replace('Z','')
+        console.log(values.startTime)
         PostGame(values)
         setTimeout(() => handleClose(), 500)
         actions.setSubmitting(false)
@@ -57,6 +60,7 @@ const NewGame = () => {
                 initialValues={{
                     gameShortID: shortid.generate(),
                     startTime: new Date(Date.now()),
+                    endTime:new Date(Date.now),
                     results: '0,0',
                     location: 2,
 
