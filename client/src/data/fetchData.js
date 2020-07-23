@@ -71,8 +71,10 @@ export function GetTeam() {
 }
 
 export function PostGame(values) {
+    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
+    const header = { headers: { 'Authorization': token }}
 
-    apiFetch.post(`/game`, values)
+    apiFetch.post(`/game`, values, header)
         .catch(err => alert(err))
 }
 
