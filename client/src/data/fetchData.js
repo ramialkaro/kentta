@@ -1,13 +1,13 @@
 import React from 'react'
 import apiFetch from '../lib/apiFetch'
-import { useAuth } from '../context/auth'
 
 export function GetGames() {
     const [gameData, setGameData] = React.useState([])
-    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
-    const header = { headers: { 'Authorization': token } }
-
+    
     React.useEffect(() => {
+        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
+        const header = { headers: { 'Authorization': token } }
+
         apiFetch.get('/game', header)
             .then(response => setGameData(response.data))
             .catch(err => {
@@ -21,9 +21,10 @@ export function GetGames() {
 
 export function GetGame(id) {
     const [game, setGame] = React.useState([])
-    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
-    const header = { headers: { 'Authorization': token } }
     React.useEffect(() => {
+        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
+        const header = { headers: { 'Authorization': token } }
+
         apiFetch.get(`/game/${id}`, header)
             .then(response => setGame(response.data))
             .catch(err => {
@@ -37,10 +38,11 @@ export function GetGame(id) {
 
 export function GetPlayer() {
     const [playerData, setPlayerData] = React.useState([])
-    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
-    const header = { headers: { 'Authorization': token }}
-
+    
     React.useEffect(() => {
+        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
+        const header = { headers: { 'Authorization': token }}
+
         apiFetch.get('/player', header)
             .then(response => setPlayerData(response.data))
             .catch(err => {
@@ -55,10 +57,11 @@ export function GetPlayer() {
 
 export function GetTeam() {
     const [teamData, setTeamData] = React.useState([])
-    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
-    const header = { headers: { 'Authorization': token }}
-
+    
     React.useEffect(() => {
+        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
+        const header = { headers: { 'Authorization': token }}
+
         apiFetch.get('/team', header)
             .then(response => setTeamData(response.data))
             .catch(err => {
@@ -80,10 +83,11 @@ export function PostGame(values) {
 
 export function GetMapKey() {
     const [apiKey, setApiKey] = React.useState('')
-    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
-    const header = { headers: { 'Authorization': token }}
-
+    
     React.useEffect(() => {
+        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
+        const header = { headers: { 'Authorization': token }}
+        
         apiFetch.get('/map', header)
             .then(response => setApiKey(response.data))
             .catch(err => {

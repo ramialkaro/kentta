@@ -5,6 +5,7 @@ import { Link, Redirect } from 'react-router-dom'
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined"
 import apiFetch from '../../lib/apiFetch'
 import { useAuth } from '../../context/auth'
+import { useProfile } from '../../context/profile'
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -34,9 +35,11 @@ const Register = () => {
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const { setAuthTokens } = useAuth()
+    const { setProfileData } = useProfile()
     const [isLoggedIn, setLoggedIn] = React.useState(false)
     const [isError, setError] = React.useState(false)
-    const hamdleRegister = () => {
+    
+    const handleRegister = () => {
         let values = {
             name: firstName + lastName,
             email,
@@ -49,6 +52,7 @@ const Register = () => {
             .then(result => {
                 if (result.status === 200) {
                     setAuthTokens(result.data.token)
+                    setProfileData(result.data.newPlayer)
                     console.log(result.data)
                     setLoggedIn(true)
                 } else {
@@ -149,7 +153,7 @@ const Register = () => {
                         </Grid>
                     </Grid>
                     <Button
-                        onClick={hamdleRegister}
+                        onClick={handleRegister}
                         fullWidth
                         color="primary"
                         className={classes.submit}

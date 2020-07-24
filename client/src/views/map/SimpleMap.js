@@ -1,13 +1,12 @@
 import React from 'react'
 import { Map, Marker, InfoWindow, GoogleApiWrapper } from 'google-maps-react';
 
-import {GetMapKey} from '../../data/fetchData'
+//import {GetMapKey} from '../../data/fetchData'
 
 
 const GOOGLE_API_KEY = ''
 export class SimpleMap extends React.Component {
-
-   
+  
     
     state = {
         showingInfoWindow: false,
@@ -36,7 +35,7 @@ export class SimpleMap extends React.Component {
     };
 
     render() {
-        
+
         return (
 
             <Map

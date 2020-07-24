@@ -30,6 +30,8 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
+// TODO join to game  
+// TODO leave a game
 
 const GameDetails = ({ match }) => {
     const classes = useStyles()

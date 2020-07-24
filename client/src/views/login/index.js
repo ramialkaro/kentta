@@ -4,6 +4,7 @@ import { Container, CssBaseline, Avatar, Typography, TextField, FormControlLabel
 import { Link, Redirect } from 'react-router-dom'
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined'
 import { useAuth } from '../../context/auth'
+import { useProfile } from '../../context/profile'
 import apiFetch from '../../lib/apiFetch'
 
 const useStyles = makeStyles((theme) => ({
@@ -34,8 +35,12 @@ const Login = (props) => {
     const [isLoggedIn, setLoggedIn] = React.useState(false)
     const [isError, setError] = React.useState(false)
     const { setAuthTokens } = useAuth()
+    const { profileData ,setProfileData } = useProfile()
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
+
+    console.log(profileData)
+
     function postLogin() {
         apiFetch.post("/login", {
             email,
@@ -43,7 +48,7 @@ const Login = (props) => {
         }).then(result => {
             if (result.status === 200) {
                 setAuthTokens(result.data.token)
-                console.log(result.data)
+                setProfileData(result.data.player)                
                 setLoggedIn(true)
             } else {
                 setError(true)

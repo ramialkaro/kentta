@@ -13,6 +13,7 @@ const useStyles = makeStyles((theme) => ({
     },
 }))
 
+// TODO get player with same game id 
 const Team = () => {
     const classes = useStyles()
     const playerData  = GetPlayer()

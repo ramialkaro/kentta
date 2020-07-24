@@ -4,6 +4,7 @@ import { Typography, Grid, Avatar, TextField, Switch, FormControlLabel, InputLab
 import { Link, Redirect } from 'react-router-dom'
 import Lock from '@material-ui/icons/Lock'
 import { useAuth } from '../../context/auth'
+import { useProfile } from '../../context/profile'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -32,14 +33,22 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
     const classes = useStyles();
+    const { profileData } = useProfile()
     const [state, setState] = React.useState({
+        name: profileData.name,
+        email: profileData.email,
+        phone: profileData.phone,
         online: true,
         playerStatus: 'going',
         myTeam: 1,
         readOnly: true
     })
-    const { authTokens, setAuthTokens } = useAuth()
+    const { setAuthTokens } = useAuth()
 
+   
+    window.onbeforeunload=()=>{
+        setState({...state, [state.name]: profileData.name})
+    }
     const handleChange = (e) => {
         const name = e.target.name
         setState({ ...state, [name]: e.target.checked })
@@ -71,7 +80,7 @@ const Profile = () => {
 
                 </Grid>
                 <Grid item container xs={12} direction="column" alignItems="center">
-                    <Typography variant="h4" component="h2">{authTokens.name}</Typography>
+                    <Typography variant="h4" component="h2">{profileData.name}</Typography>
                     <Typography variant="subtitle1" component="p">Player Bio </Typography>
                 </Grid>
 
@@ -81,7 +90,7 @@ const Profile = () => {
                 <TextField
                     label="Phone"
                     readOnly={state.readOnly}
-                    value={authTokens.phone}
+                    value={state.phone}
                     name="phone"
                     fullWidth
                     margin="normal"
@@ -90,7 +99,7 @@ const Profile = () => {
                 <TextField
                     label="Email"
                     readOnly={state.readOnly}
-                    value={authTokens.email}
+                    value={state.email}
                     name="email"
                     fullWidth
                     margin="normal"

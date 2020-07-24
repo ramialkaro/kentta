@@ -6,7 +6,7 @@ const { withJWTAuthMiddleware } = require('express-kun')
 const protectedRouter = withJWTAuthMiddleware(router, process.env.JWT_SECRET)
 
 
-// TODO: Retrieve all games from database
+// [x] TODO: Retrieve all games from database
 protectedRouter.get('/game', async (req, res) => {
     try {
         res.cookie('foo','bar',{
@@ -26,7 +26,7 @@ protectedRouter.get('/game', async (req, res) => {
 })
 
 
-// TODO: Retrieve a single game from database using id
+// [x] TODO: Retrieve a single game from database using id
 protectedRouter.get('/game/:id', async (req, res) => {
     try {
         const game = await queries
@@ -43,7 +43,7 @@ protectedRouter.get('/game/:id', async (req, res) => {
     }
 })
 
-// TODO: Created a game 
+// [x] TODO: Created a game 
 protectedRouter.post('/game', async (req, res) => {
     try {
         const newGame = await queries
@@ -60,7 +60,7 @@ protectedRouter.post('/game', async (req, res) => {
 })
 
 
-// TODO: update a single game by the id
+// [x] TODO: update a single game by the id
 protectedRouter.put('/game/:id', async (req, res) => {
     try {
         const existGame = await queries
@@ -81,7 +81,7 @@ protectedRouter.put('/game/:id', async (req, res) => {
     }
 })
 
-// TODO: delete a single game by the id
+// [x] TODO: delete a single game by the id
 protectedRouter.delete('/game/:id', async (req, res) => {
     try {
         const existGame = await queries

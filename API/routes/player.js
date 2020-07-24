@@ -16,8 +16,7 @@ protectedRouter.get('/player', async (req, res) => {
             .player
             .getAll()
         if (players) {
-            const token = jwt.sign({ player }, process.env.JWT_SECRET, { expiresIn: "24h" })
-            res.status(200).json({players, token})
+            res.status(200).json(players)
         } else {
             res.status(404).json({ msg: "Players not found" })
         }
@@ -69,7 +68,7 @@ router.post('/register', async (req, res) => {
             .create(req.body)
             if (newPlayer) {
                 const token = jwt.sign({ newPlayer }, process.env.JWT_SECRET, { expiresIn: "24h" })
-                res.status(200).json({ newPlayer, token, msg: "login" })
+                res.status(200).json({ newPlayer: req.body, token, msg: "login" })
             }
 
         } else {
