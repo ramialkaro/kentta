@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
     const classes = useStyles();
-    const { profileData } = useProfile()
+    const { profileData, setPlayer } = useProfile()
     const [state, setState] = React.useState({
         name: profileData.name,
         email: profileData.email,
@@ -60,11 +60,11 @@ const Profile = () => {
         console.log(state)
     }
     const logOut = () => {
-        setAuthTokens()
         setTimeout(() => {
             return <Redirect to="/" />
         }, 200)
         localStorage.removeItem("token")
+        localStorage.removeItem("player")
     }
     return (
         <Container className={classes.root}>
