@@ -39,7 +39,6 @@ const Login = (props) => {
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
 
-    console.log(profileData)
 
     function postLogin() {
         apiFetch.post("/login", {

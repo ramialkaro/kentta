@@ -3,7 +3,6 @@ import { makeStyles } from '@material-ui/core/styles'
 import { Typography, Grid, Avatar, TextField, Switch, FormControlLabel, InputLabel, Select, FormControl, Container } from '@material-ui/core'
 import { Link, Redirect } from 'react-router-dom'
 import Lock from '@material-ui/icons/Lock'
-import { useAuth } from '../../context/auth'
 import { useProfile } from '../../context/profile'
 
 const useStyles = makeStyles((theme) => ({
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Profile = () => {
     const classes = useStyles();
-    const { profileData, setPlayer } = useProfile()
+    const { profileData } = useProfile()
     const [state, setState] = React.useState({
         name: profileData.name,
         email: profileData.email,
@@ -43,7 +42,6 @@ const Profile = () => {
         myTeam: 1,
         readOnly: true
     })
-    const { setAuthTokens } = useAuth()
 
    
     window.onbeforeunload=()=>{
@@ -57,7 +55,6 @@ const Profile = () => {
     const handleStatus = (e) => {
         const name = e.target.name
         setState({ ...state, [name]: e.target.value })
-        console.log(state)
     }
     const logOut = () => {
         setTimeout(() => {

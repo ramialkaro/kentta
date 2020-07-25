@@ -49,7 +49,3 @@ const Icon = (props) => {
 
 export default Icon
 
-/*
-<Tennis />, Football: <Football />, Basketball: <Basketball />, Cricket: <Cricket />,
-Golf: <Golf />, Mma: <Mma/>, Kabaddi: <Kabaddi/>, Hocky: <Hocky/>, Rugby: <Rugby/>, Other: <Other/>,
-Vollyball: <Vollyball/>, Rowing: <Rowing/> */

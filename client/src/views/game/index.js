@@ -19,7 +19,6 @@ const Game = ()=> {
     const classes = useStyles()
     var gameData = GetGames()
     let totalColor = color.length
-    console.log(shortid.generate())
     
     return (
         <Container className={classes.root}>

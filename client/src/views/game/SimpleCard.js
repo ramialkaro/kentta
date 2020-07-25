@@ -48,14 +48,12 @@ const useStyles = makeStyles((theme) => ({
 
 const SimpleCard = ({ color, data }) => {
     const classes = useStyles()
-    console.log(data.startTime)
 
     return (
         <Paper className={classes.root} style={{ backgroundColor: color }}>
             <Grid container spacing={1}>
-                <Grid item xs={3} container justify="center">
+                <Grid item xs={3} container alignItems="center" justify="center">
                     <Icon type={data.gameType} color="inherit" fontSize="large" />
-                    <Typography className={classes.result}>{data.results || ' '}</Typography>
                 </Grid>
                 <Grid item container xs={7} direction="column">
 

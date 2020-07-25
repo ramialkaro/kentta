@@ -8,8 +8,9 @@ import Moment from 'react-moment';
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import PeopleIcon from '@material-ui/icons/People'
-
+import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty'
 import Icon from './Icons'
+import DurationCalculator from '../../calculations/DurationCalculator'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -60,6 +61,12 @@ const GameDetails = ({ match }) => {
                         </ListItemIcon>
                         <ListItemText primary={<Moment date={data.startTime} format="DD-MM-YYYY HH:mm" />} />
                     </ListItem>
+                    <ListItem >
+                        <ListItemIcon>
+                            <HourglassEmptyIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={DurationCalculator(data.startTime, data.endTime)} />
+                    </ListItem>
 
                     <ListItem >
                         <ListItemIcon>
@@ -70,7 +77,7 @@ const GameDetails = ({ match }) => {
 
                     <ListItem >
                         <ListItemIcon>
-                                <Icon type={data.gameType} />
+                            <Icon type={data.gameType} />
                         </ListItemIcon>
                         <ListItemText primary={data.gameType} />
                     </ListItem>

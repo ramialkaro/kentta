@@ -1,10 +1,10 @@
 import React from 'react'
 import { makeStyles } from '@material-ui/core/styles'
-import { Container, TextField, Grid, Typography, Button, Snackbar } from '@material-ui/core'
+import { Container, TextField, Grid, Typography, Button, Snackbar, FormControl, InputLabel, Select } from '@material-ui/core'
 import { DateTimePicker, MuiPickersUtilsProvider } from '@material-ui/pickers'
 import DateFnsUtils from '@date-io/date-fns'
 import CancelIcon from '@material-ui/icons/Cancel'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import shortid from 'shortid'
 import { PostGame } from '../../data/fetchData'
 import { Formik, Form } from 'formik'
@@ -29,18 +29,25 @@ const useStyles = makeStyles((theme) => ({
 const NewGame = () => {
     const classes = useStyles()
     const [open, setOpen] = React.useState(false)
+    const [created, setCreated] = React.useState(false)
+
+    const gameList = ['Tennis', 'Basketball', 'Baseball', 'Football', 'Cricket', 'Golf', 'Mma', 'Kabaddi', 'Hocky', 'Other', 'Vollyball', 'Rowing', 'Rugby']
 
     const handleClose = () => {
         setOpen(false)
+        setCreated(true)
     }
     const handleNewGame = (values, actions) => {
         setOpen(true)
-        console.log(values)
-        values.startTime = moment(values.startTime).utc().format().replace('T',' ').replace('Z','')
-        console.log(values.startTime)
+        values.startTime = moment(values.startTime).utc().format().replace('T', ' ').replace('Z', '')
+        values.endTime = moment(values.endTime).utc().format().replace('T', ' ').replace('Z', '')
+
         PostGame(values)
         setTimeout(() => handleClose(), 500)
         actions.setSubmitting(false)
+    }
+    if(created){
+        return <Redirect to="/game" />
     }
     return (
 
@@ -60,7 +67,8 @@ const NewGame = () => {
                 initialValues={{
                     gameShortID: shortid.generate(),
                     startTime: new Date(Date.now()),
-                    endTime:new Date(Date.now),
+                    endTime: new Date(Date.now()),
+                    gameType: 'Tennis',
                     results: '0,0',
                     location: 2,
 
@@ -90,7 +98,40 @@ const NewGame = () => {
                                     onChange={date => setFieldValue('startTime', date)}
                                 />
                             </Grid>
+
+                            <Grid container justify="space-around">
+                                <DateTimePicker
+                                    variant="inline"
+                                    label="End Time"
+                                    name="endTime"
+                                    ampm={false}
+                                    minDate={values.startTime}
+                                    value={values.endTime}
+                                    fullWidth
+                                    className={classes.space}
+                                    onChange={date => setFieldValue('endTime', date)}
+                                />
+                            </Grid>
                         </MuiPickersUtilsProvider>
+                        <FormControl variant="filled" fullWidth>
+                            <InputLabel htmlFor="gameType-selector">Game Type</InputLabel>
+                            <Select
+                                native
+                                value={values.gameType}
+                                onChange={e=> setFieldValue('gameType',e.target.value)}
+                                inputProps={{
+                                    name: 'gameType',
+                                    id: 'gameType-selector',
+                                    margin: "normal",
+                                }}
+                                fullWidth
+
+                            >
+                                {
+                                    gameList.map(game=> <option key={game} value={game}>{game}</option>)
+                                }
+                            </Select>
+                        </FormControl>
                         <TextField
                             variant="standard"
                             label="Location"

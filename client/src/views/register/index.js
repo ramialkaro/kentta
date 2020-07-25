@@ -46,14 +46,12 @@ const Register = () => {
             password,
             phone
         }
-        console.log(values)
 
         apiFetch.post('/register', values)
             .then(result => {
                 if (result.status === 200) {
                     setAuthTokens(result.data.token)
                     setProfileData(result.data.newPlayer)
-                    console.log(result.data)
                     setLoggedIn(true)
                 } else {
                     setError(true)
