@@ -35,7 +35,7 @@ const Login = (props) => {
     const [isLoggedIn, setLoggedIn] = React.useState(false)
     const [isError, setError] = React.useState(false)
     const { setAuthTokens } = useAuth()
-    const { profileData ,setProfileData } = useProfile()
+    const { setProfileData } = useProfile()
     const [email, setEmail] = React.useState("")
     const [password, setPassword] = React.useState("")
 
