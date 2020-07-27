@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import { Link } from 'react-router-dom'
 import { GetGame } from '../../data/fetchData'
-import Moment from 'react-moment';
+import Moment from 'react-moment'
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import PeopleIcon from '@material-ui/icons/People'

@@ -32,7 +32,7 @@ const Game = () => {
     }
     return (
         <Container className={classes.root}>
-            <TopBar create={true} data={gameData} setData={handleSearch} />
+            <TopBar data={gameData} setData={handleSearch} />
             {data.length !==0 ? data.map(game => {
                 let colorIndex = Math.floor(Math.random() * totalColor)
 

@@ -46,11 +46,11 @@ const useStyles = makeStyles((theme) => ({
     },
   },
 }))
-const TopBar = ({ create, data, setData }) => {
+const TopBar = ({ data, setData }) => {
 
   const classes = useStyles();
 
-  
+
   const handleSearch = (event) => {
     let currentRow = [];
     let newRow = [];
@@ -66,7 +66,7 @@ const TopBar = ({ create, data, setData }) => {
       newRow = [...data]
     }
     setData(newRow)
-    
+
   };
 
   return (
@@ -86,13 +86,12 @@ const TopBar = ({ create, data, setData }) => {
             inputProps={{ 'aria-label': 'search' }}
           />
         </div>
-        {create === true ?
 
-          <Button component={Link} to="/newgame" color="primary" size="small">
-            new
-              </Button>
+        <Button component={Link} to="/newgame" color="primary" size="small">
+          new
+        </Button>
 
-          : null}
+
       </Toolbar>
     </AppBar>
   )
