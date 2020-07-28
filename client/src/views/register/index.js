@@ -29,8 +29,8 @@ const useStyles = makeStyles((theme) => ({
 
 const Register = () => {
     const classes = useStyles()
-    const [firstName, setFirstName] = React.useState('')
-    const [lastName, setLastName] = React.useState('')
+    const [firstname, setFirstName] = React.useState('')
+    const [lastname, setLastName] = React.useState('')
     const [phone, setPhone] = React.useState('')
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
@@ -38,10 +38,11 @@ const Register = () => {
     const { setProfileData } = useProfile()
     const [isLoggedIn, setLoggedIn] = React.useState(false)
     const [isError, setError] = React.useState(false)
-    
+
     const handleRegister = () => {
         let values = {
-            name: firstName + lastName,
+            firstname,
+            lastname,
             email,
             password,
             phone
@@ -60,7 +61,7 @@ const Register = () => {
                 setError(true)
             })
     }
-    if(isError){
+    if (isError) {
         return <h3>Error...</h3>
     }
     if (isLoggedIn) {
@@ -84,7 +85,7 @@ const Register = () => {
                                 fullWidth
                                 name="firstname"
                                 autoComplete="fname"
-                                id="firstName"
+                                id="firstname"
                                 label="First Name"
                                 onChange={e => setFirstName(e.target.value)}
                                 autoFocus
@@ -97,7 +98,7 @@ const Register = () => {
                                 fullWidth
                                 name="lastname"
                                 autoComplete="lname"
-                                id="lastName"
+                                id="lastname"
                                 label="Last Name"
                                 onChange={e => setLastName(e.target.value)}
                                 autoFocus

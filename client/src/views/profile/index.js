@@ -34,7 +34,8 @@ const Profile = () => {
     const classes = useStyles();
     const { profileData } = useProfile()
     const [state, setState] = React.useState({
-        name: profileData.name,
+        firstname: profileData.firstname,
+        lastname: profileData.lastname,
         email: profileData.email,
         phone: profileData.phone,
         online: true,
@@ -43,9 +44,9 @@ const Profile = () => {
         readOnly: true
     })
 
-   
-    window.onbeforeunload=()=>{
-        setState({...state, [state.name]: profileData.name})
+
+    window.onbeforeunload = () => {
+        setState({ ...state, [state.name]: profileData.name })
     }
     const handleChange = (e) => {
         const name = e.target.name
@@ -77,7 +78,7 @@ const Profile = () => {
 
                 </Grid>
                 <Grid item container xs={12} direction="column" alignItems="center">
-                    <Typography variant="h4" component="h2">{profileData.name}</Typography>
+                    <Typography variant="h4" component="h2">{state.firstname} {state.lastname} </Typography>
                     <Typography variant="subtitle1" component="p">Player Bio </Typography>
                 </Grid>
 

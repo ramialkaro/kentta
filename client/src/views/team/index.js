@@ -2,10 +2,11 @@ import React from 'react'
 import { Container, Grid, List, ListItem, ListItemIcon, ListItemText, Button} from '@material-ui/core'
 import SimpleCard from './SimpleCard'
 import { makeStyles } from '@material-ui/core/styles'
-import { GetPlayer } from '../../data/fetchData'
+import { GetTeam } from '../../data/fetchData'
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import Moment from 'react-moment'
+
 const useStyles = makeStyles((theme) => ({
     top: {
         top: 0,
@@ -27,9 +28,10 @@ const useStyles = makeStyles((theme) => ({
 // TODO get player with same game id 
 const Team = () => {
     const classes = useStyles()
-    const playerData = GetPlayer()
+    const teamData = GetTeam()
 
 
+    
     return (
         <>
             <Grid container className={classes.top}>
@@ -39,14 +41,14 @@ const Team = () => {
                         <ListItemIcon>
                             <FingerprintIcon />
                         </ListItemIcon>
-                        <ListItemText primary="alhsdf8" />
+                        <ListItemText primary={teamData.gameShortID} />
                     </ListItem>
 
                     <ListItem >
                         <ListItemIcon>
                             <ScheduleIcon />
                         </ListItemIcon>
-                        <ListItemText primary={<Moment date={new Date(Date.now())} format="DD-MM-YYYY HH:mm" />} />
+                        <ListItemText primary={<Moment date={teamData.startTime} format="DD-MM-YYYY HH:mm" />} />
                     </ListItem>
                 </List>
                 <Button type="button" fullWidth color="primary">Leave</Button>
@@ -54,10 +56,10 @@ const Team = () => {
             <Container className={classes.root}>
 
                 {
-                    playerData.map(player => {
+                    teamData.map(team => {
 
                         return (
-                            <SimpleCard key={player.id} data={player} />
+                            <SimpleCard key={team.id} data={team} />
                         )
                     })
                 }

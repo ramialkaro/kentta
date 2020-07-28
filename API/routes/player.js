@@ -54,18 +54,18 @@ router.post('/login', async (req, res) => {
 // Register a player and save it to database
 
 router.post('/register', async (req, res) => {
-    
+    console.log(req.body)
     const salt = await bcrypt.genSaltSync(10)
     const hash = await bcrypt.hashSync(req.body.password, salt)
-    req.body.password = hash
+    req.body.password = await hash
     try {
         const existPlayer = await queries
-        .player
-        .getOne(req.body.email)
+            .player
+            .getOne(req.body.email)
         if (!existPlayer) {
             const newPlayer = await queries
-            .player
-            .create(req.body)
+                .player
+                .create(req.body)
             if (newPlayer) {
                 const token = jwt.sign({ newPlayer }, process.env.JWT_SECRET, { expiresIn: "24h" })
                 res.status(200).json({ newPlayer: req.body, token, msg: "register" })
