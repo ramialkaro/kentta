@@ -1,6 +1,5 @@
 const express = require('express')
 const queries = require('../db/queries')
-const { crossJoin } = require('../db/knex')
 const router = express.Router()
 
 
@@ -11,7 +10,7 @@ router.get('/mygames', async (req, res) => {
     try {
         const myGames = await queries
             .team
-            .myGames(req.body)
+            .myGames(req.query)
         // TODO player's games list is not empty 
         if (myGames.length !== 0) {
             res.status(200).json(myGames)
@@ -30,13 +29,13 @@ router.get('/team', async (req, res) => {
         // check if player already in table
         const checking = await queries
             .team
-            .checkTeam(req.body)
+            .checkTeam(req.query)
 
 
         if (checking.length !== 0) {
             const teams = await queries
                 .team
-                .getAll(req.body)
+                .getAll(req.query)
             if (teams) {
                 res.status(200).json(teams)
             }
@@ -76,7 +75,7 @@ router.delete('/team', async (req, res) => {
 
         const id = await queries
             .team
-            .leave(req.body)
+            .leave(req.query)
 
         if (id) {
             res.status(200).json(id)

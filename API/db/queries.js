@@ -12,6 +12,9 @@ module.exports = {
         getOne: function (email) {
             return knex('player').where({ email }).first()
         },
+        getOneById: function (id) {
+            return knex('player').where({ id }).select('id', 'firstname', 'lastname', 'email', 'phone', 'latitude', 'longitude', 'status', 'active', 'team_id', 'additionalInfo').first()
+        },
         create: function (player) {
             return knex('player').insert(player)
         },

@@ -2,13 +2,14 @@ import React from 'react'
 import { Container, Grid, List, ListItem, ListItemIcon, ListItemText, Button } from '@material-ui/core'
 import SimpleCard from './SimpleCard'
 import { makeStyles } from '@material-ui/core/styles'
-import { GetTeam } from '../../data/fetchData'
+import { GetTeam, LeaveGame } from '../../data/fetchData'
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import ScheduleIcon from '@material-ui/icons/Schedule'
 import Moment from 'react-moment'
 import CancelIcon from '@material-ui/icons/Cancel'
 import EventIcon from '@material-ui/icons/Event'
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
+import { useProfile } from '../../context/profile'
 const useStyles = makeStyles((theme) => ({
     top: {
         top: 0,
@@ -35,8 +36,13 @@ const Team = ({ match }) => {
     const teamData = GetTeam(game_id)
     const [state, setState] = React.useState({
         gameShortID: '',
-        startTime: new Date(Date.now())
+        startTime: new Date(Date.now()),
+        leave: false
     })
+
+    const { profileData } = useProfile()
+
+
     React.useEffect(() => {
         setState({
             gameShortID: teamData.map(item => item.gameShortID)[0],
@@ -44,7 +50,14 @@ const Team = ({ match }) => {
         })
     }, [teamData])
 
+    const handleLeave = e => {
+        LeaveGame(match.params.id, profileData.id)
+        setState({ leave: true })
+        e.preventDefault()
 
+    }
+
+    if (state.leave) return <Redirect to="/mygames" />
 
     return (
         <>
@@ -73,14 +86,16 @@ const Team = ({ match }) => {
                 </Grid>
                 {
                     Date.parse(state.startTime) > Date.parse(new Date(Date.now())) ?
+                        <Button type="button" onClick={handleLeave} fullWidth color="primary">Leave</Button>
+
+                        :
+
                         <ListItem>
                             <ListItemIcon>
                                 <EventIcon />
                             </ListItemIcon>
                             <ListItemText primary="game end" />
                         </ListItem>
-                        :
-                        <Button type="button" fullWidth color="primary">Leave</Button>
 
                 }
             </Grid>

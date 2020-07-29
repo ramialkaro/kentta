@@ -59,7 +59,7 @@ router.post('/register', async (req, res) => {
     const hash = await bcrypt.hashSync(req.body.password, salt)
     req.body.password = await hash
     try {
-        const existPlayer = await queries
+        let existPlayer = await queries
             .player
             .getOne(req.body.email)
         if (!existPlayer) {
@@ -68,7 +68,7 @@ router.post('/register', async (req, res) => {
                 .create(req.body)
             if (newPlayer) {
                 const token = jwt.sign({ newPlayer }, process.env.JWT_SECRET, { expiresIn: "24h" })
-                res.status(200).json({ newPlayer: req.body, token, msg: "register" })
+                res.status(200).json({ newPlayer: await queries.player.getOneById(newPlayer), token, msg: "register" })
             }
 
         } else {

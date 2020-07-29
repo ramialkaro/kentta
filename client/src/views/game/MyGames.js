@@ -58,8 +58,9 @@ const MyGames = ({ match }) => {
                                         <ListItem>
                                             <ListItemIcon> <HourglassEmptyIcon fontSize="small" /></ListItemIcon>
                                             <ListItemText secondary={
-                                                Date.parse(game.startTime) > Date.parse(new Date(Date.now())) ? "game end" :
-                                                    DurationCalculator(new Date(Date.now()), game.startTime)} />
+                                                Date.parse(game.startTime) > Date.parse(new Date(Date.now())) ?
+                                                    DurationCalculator(game.startTime, new Date(Date.now())) : "game end"} />
+                                                    
                                         </ListItem>
                                     </List>
                                 </Grid>
