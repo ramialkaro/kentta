@@ -25,18 +25,17 @@ const useStyles = makeStyles((theme) => ({
 }))
 const MyGames = ({ match }) => {
     const classes = useStyles()
-    const myListGames = GetMyListGames()
+    const { data, error } = GetMyListGames()
     const [myGames, setMyGames] = React.useState([])
 
     React.useEffect(() => {
-        setMyGames(myListGames)
-    }, [myListGames])
+        setMyGames(data)
+    }, [data])
 
-
-    if (myGames.length === 0) {
+    if (error.length !== 0) {
         return (
             <Grid item xs={12} className={classes.root} direction="column" container justify="center" alignItems="center">
-                <Typography variant="h5" className={classes.paper}>you don't have any games yet</Typography>
+                <Typography variant="h6" className={classes.paper}>{error}</Typography>
                 <Button component={Link} to="/game" color="primary">Join game</Button>
             </Grid>
         )

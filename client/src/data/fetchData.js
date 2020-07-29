@@ -20,11 +20,7 @@ export function GetGames() {
 
         apiFetch.get('/game', header)
             .then(response => setGameData(response.data))
-            .catch(err => {
-                if (err) {
-                    console.log(err)
-                }
-            })
+            .catch(err => alert(err))
     }, [])
     return (gameData)
 }
@@ -37,11 +33,7 @@ export function GetGame(id) {
 
         apiFetch.get(`/game/${id}`, header)
             .then(response => setGame(response.data))
-            .catch(err => {
-                if (err) {
-                    console.log(err)
-                }
-            })
+            .catch(err => alert(err))
     }, [id])
     return (game)
 }
@@ -55,11 +47,7 @@ export function GetPlayer() {
 
         apiFetch.get('/player', header)
             .then(response => setPlayerData(response.data))
-            .catch(err => {
-                if (err) {
-                    console.log(err)
-                }
-            })
+            .catch(err => alert(err))
     }, [])
     return (playerData)
 }
@@ -68,7 +56,6 @@ export function GetTeam(game_id) {
     const [teamData, setTeamData] = React.useState([])
 
     const { profileData } = useProfile()
-
     React.useEffect(() => {
 
         const header = {
@@ -80,20 +67,16 @@ export function GetTeam(game_id) {
 
         apiFetch.get('/team', header)
             .then(response => setTeamData(response.data))
-            .catch(err => {
-                if (err) {
-                    console.log(err)
-                }
-            })
-    }, [game_id])
+            .catch(err => alert(err))
+    }, [game_id, profileData.id])
     return (teamData)
 }
 
 export function GetMyListGames() {
-    const [myGames, setMyGames] = React.useState([])
+    const [data, setData] = React.useState([])
     const { profileData } = useProfile()
+    const [error, setError] = React.useState([])
 
-   
     React.useEffect(() => {
 
         const header = {
@@ -102,10 +85,10 @@ export function GetMyListGames() {
             }
         }
         apiFetch.get('/mygames', header)
-            .then(response => setMyGames(response.data))
-            .catch(err => console.log(err))
-    }, [])
-    return (myGames)
+            .then(response => setData(response.data))
+            .catch(err => setError(err.response.data.msg))
+    }, [profileData.id])
+    return ({data, error})
 }
 
 export function JoinGame(game_id, player_id) {
@@ -116,7 +99,7 @@ export function JoinGame(game_id, player_id) {
         .catch(err => alert(err))
 }
 
-// TODO leave a game 
+// [x] TODO leave a game 
 export function LeaveGame(game_id, player_id) {
 
     const header = {
@@ -147,11 +130,7 @@ export function GetMapKey() {
 
         apiFetch.get('/map', header)
             .then(response => setApiKey(response.data))
-            .catch(err => {
-                if (err) {
-                    console.log(err)
-                }
-            })
+            .catch(err => alert(err))
     }, [])
     return (apiKey)
 }

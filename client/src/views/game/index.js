@@ -16,24 +16,24 @@ const useStyles = makeStyles((theme) => ({
 }))
 const Game = () => {
     const classes = useStyles()
-    var gameData = GetGames()
-    const [data, setData] = React.useState([])
+    var data = GetGames()
+    const [games, setGames] = React.useState([])
     let totalColor = color.length
 
-    window.onload = function () { setData(gameData) }
+    window.onload = function () { setGames(data) }
 
     React.useEffect(() => {
-        setData(gameData)
-    }, [gameData])
+        setGames(data)
+    }, [data])
 
 
     const handleSearch = game => {
-        setData(game)
+        setGames(game)
     }
     return (
         <Container className={classes.root}>
-            <TopBar data={gameData} setData={handleSearch} />
-            {data.length !== 0 ? data.map(game => {
+            <TopBar data={data} setData={handleSearch} />
+            {games.length !== 0 ? games.map(game => {
                 let colorIndex = Math.floor(Math.random() * totalColor)
 
                 return (

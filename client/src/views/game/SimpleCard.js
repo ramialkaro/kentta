@@ -50,7 +50,7 @@ const SimpleCard = ({ color, data }) => {
     const classes = useStyles()
 
     return (
-        <Paper className={classes.root} style={{ backgroundColor: color }}>
+        <Paper className={classes.root} style={{ border: `1.5px solid ${color}` }}>
             <Grid container spacing={1}>
                 <Grid item xs={3} container alignItems="center" justify="center">
                     <Icon type={data.gameType} color="inherit" fontSize="large" />

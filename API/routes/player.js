@@ -54,7 +54,7 @@ router.post('/login', async (req, res) => {
 // Register a player and save it to database
 
 router.post('/register', async (req, res) => {
-    console.log(req.body)
+
     const salt = await bcrypt.genSaltSync(10)
     const hash = await bcrypt.hashSync(req.body.password, salt)
     req.body.password = await hash

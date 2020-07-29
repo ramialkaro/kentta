@@ -23,7 +23,6 @@ const useStyles = makeStyles((theme) => ({
 const SimpleCard = ({ data }) => {
     const classes = useStyles()
 
-    console.log("data.. ", data)
     return (
         <Paper className={classes.root}>
 

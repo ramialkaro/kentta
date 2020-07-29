@@ -1,12 +1,14 @@
+require('dotenv').config()
 const express = require('express')
 const queries = require('../db/queries')
 const router = express.Router()
+const { withJWTAuthMiddleware } = require('express-kun')
 
-
+const protectedRouter = withJWTAuthMiddleware(router, process.env.JWT_SECRET)
 
 
 // TODO player already have a game then get list of player in same team
-router.get('/mygames', async (req, res) => {
+protectedRouter.get('/mygames', async (req, res) => {
     try {
         const myGames = await queries
             .team
@@ -23,7 +25,7 @@ router.get('/mygames', async (req, res) => {
     }
 })
 // TODO player already have a game then get list of player in same team
-router.get('/team', async (req, res) => {
+protectedRouter.get('/team', async (req, res) => {
     try {
 
         // check if player already in table
@@ -49,7 +51,7 @@ router.get('/team', async (req, res) => {
 })
 
 // TODO join a game
-router.post('/team', async (req, res) => {
+protectedRouter.post('/team', async (req, res) => {
     try {
         // TODO check if player already in table
         const checking = await queries
@@ -70,7 +72,7 @@ router.post('/team', async (req, res) => {
 })
 
 // TODO leave a game
-router.delete('/team', async (req, res) => {
+protectedRouter.delete('/team', async (req, res) => {
     try {
 
         const id = await queries
