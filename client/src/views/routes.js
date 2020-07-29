@@ -10,6 +10,7 @@ import NewGame from './game/NewGame'
 import GameDetails from './game/GameDetails'
 import BottomBar from '../components/BottomBar'
 import { useAuth } from '../context/auth'
+import MyGames from './game/MyGames'
 
 const SecureRoute = ({ component: Component, ...rest }) => {
     const {authTokens} = useAuth()
@@ -36,7 +37,8 @@ const Routes = () => {
                 <Route path="/" exact component={Login} />
                 <Route path="/register" component={Register} />
                 <SecureRoute path="/profile" component={Profile} />
-                <SecureRoute path="/team" component={Team} />
+                <SecureRoute path="/mygames" exact component={MyGames} />
+                <SecureRoute path="/mygames/:id" component={Team} />
                 <SecureRoute path="/game" exact component={Game} />
                 <SecureRoute path="/game/:id" component={GameDetails} />
                 <SecureRoute path="/map" component={Map} />

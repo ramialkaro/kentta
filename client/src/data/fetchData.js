@@ -1,12 +1,20 @@
 import React from 'react'
 import apiFetch from '../lib/apiFetch'
+import { useProfile } from '../context/profile'
 
+export function Token() {
+    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
+    return token
+}
+export function Header (){
+    return
+}
 export function GetGames() {
     const [gameData, setGameData] = React.useState([])
-    
+
     React.useEffect(() => {
-        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
-        const header = { headers: { 'Authorization': token } }
+        
+        const header = { headers: { 'Authorization': Token() } }
 
         apiFetch.get('/game', header)
             .then(response => setGameData(response.data))
@@ -22,8 +30,8 @@ export function GetGames() {
 export function GetGame(id) {
     const [game, setGame] = React.useState([])
     React.useEffect(() => {
-        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
-        const header = { headers: { 'Authorization': token } }
+        
+        const header = { headers: { 'Authorization': Token() } }
 
         apiFetch.get(`/game/${id}`, header)
             .then(response => setGame(response.data))
@@ -38,10 +46,10 @@ export function GetGame(id) {
 
 export function GetPlayer() {
     const [playerData, setPlayerData] = React.useState([])
-    
+
     React.useEffect(() => {
-        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
-        const header = { headers: { 'Authorization': token }}
+        
+        const header = { headers: { 'Authorization': Token() } }
 
         apiFetch.get('/player', header)
             .then(response => setPlayerData(response.data))
@@ -55,12 +63,19 @@ export function GetPlayer() {
 }
 
 
-export function GetTeam() {
+export function GetTeam(game_id) {
     const [teamData, setTeamData] = React.useState([])
-    
+
+    const { profileData } = useProfile()
+
     React.useEffect(() => {
-        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
-        const header = { headers: { 'Authorization': token }}
+        
+        const header = {
+            headers: { 'Authorization': Token() }, params: {
+                game_id,
+                player_id: profileData.id
+            }
+        }
 
         apiFetch.get('/team', header)
             .then(response => setTeamData(response.data))
@@ -69,13 +84,40 @@ export function GetTeam() {
                     console.log(err)
                 }
             })
-    }, [])
+    }, [game_id])
     return (teamData)
 }
 
+export function GetMyListGames() {
+    const [myGames, setMyGames] = React.useState([])
+    const { profileData } = useProfile()
+
+    console.log(profileData.id)
+    React.useEffect(() => {
+        
+        const header = {
+            headers: { 'Authorization': Token() }, params: {
+                player_id: profileData.id
+            }
+        }
+        apiFetch.get('/mygames', header)
+            .then(response => setMyGames(response.data))
+            .catch(err => console.log(err))
+    }, [])
+    return (myGames)
+}
+
+export function JoinGame(game_id, player_id) {
+    
+    const header = { headers: { 'Authorization': Token() } }
+
+    apiFetch.post('/team', { player_id, game_id }, header)
+        .catch(err => alert(err))
+}
+
 export function PostGame(values) {
-    const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
-    const header = { headers: { 'Authorization': token }}
+    
+    const header = { headers: { 'Authorization': Token() } }
 
     apiFetch.post(`/game`, values, header)
         .catch(err => alert(err))
@@ -83,11 +125,11 @@ export function PostGame(values) {
 
 export function GetMapKey() {
     const [apiKey, setApiKey] = React.useState('')
-    
+
     React.useEffect(() => {
-        const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"","")
-        const header = { headers: { 'Authorization': token }}
         
+        const header = { headers: { 'Authorization': Token() } }
+
         apiFetch.get('/map', header)
             .then(response => setApiKey(response.data))
             .catch(err => {

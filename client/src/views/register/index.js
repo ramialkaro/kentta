@@ -53,6 +53,7 @@ const Register = () => {
                 if (result.status === 200) {
                     setAuthTokens(result.data.token)
                     setProfileData(result.data.newPlayer)
+                    console.log(result.data.newPlayer.id)
                     setLoggedIn(true)
                 } else {
                     setError(true)

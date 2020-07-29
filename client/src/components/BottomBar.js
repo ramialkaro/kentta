@@ -26,7 +26,7 @@ const BottomBar = () => {
           </IconButton>
       
 
-          <IconButton edge="start" component={Link} to="/team" color="primary" aria-label="add">
+          <IconButton edge="start" component={Link} to="/mygames" color="primary" aria-label="add">
             <PeopleIcon />
           </IconButton>
             

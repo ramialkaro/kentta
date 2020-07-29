@@ -2,7 +2,7 @@ import React from 'react'
 import { Typography, Grid, IconButton, Button, ListItem, List, ListItemIcon, ListItemText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Link } from 'react-router-dom'
+import { Link, Redirect } from 'react-router-dom'
 import { GetGame } from '../../data/fetchData'
 import Moment from 'react-moment'
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
@@ -11,7 +11,8 @@ import PeopleIcon from '@material-ui/icons/People'
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty'
 import Icon from './Icons'
 import DurationCalculator from '../../calculations/DurationCalculator'
-
+import { JoinGame } from '../../data/fetchData'
+import { useProfile } from '../../context/profile'
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
@@ -31,13 +32,22 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-// TODO join to game  
+// [x] TODO join to game  
 // TODO leave a game
 
 const GameDetails = ({ match }) => {
     const classes = useStyles()
     const data = GetGame(match.params.id)
-
+    const { profileData } = useProfile()
+    const [joined, setJoined] = React.useState(false)
+    const handleJoin = (e) => {
+        JoinGame(match.params.id, profileData.id)
+        setJoined(true)
+        e.preventDefault()
+    }
+    if (joined) {
+        return <Redirect to="/mygames" />
+    }
     return (
         <Grid container className={classes.root} >
             <Grid item container xs={12} className={classes.control} justify="flex-start" alignItems="center">
@@ -84,7 +94,7 @@ const GameDetails = ({ match }) => {
 
 
                 </List>
-                <Button type="button" fullWidth color="primary">JOIN</Button>
+                <Button type="button" onClick={handleJoin} fullWidth color="primary">JOIN</Button>
             </Grid>
 
 
