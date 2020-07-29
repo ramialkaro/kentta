@@ -13,6 +13,9 @@ import Icon from './Icons'
 import DurationCalculator from '../../calculations/DurationCalculator'
 import { JoinGame } from '../../data/fetchData'
 import { useProfile } from '../../context/profile'
+import SlowMotionVideoTwoToneIcon from '@material-ui/icons/SlowMotionVideoTwoTone'
+import StopTwoToneIcon from '@material-ui/icons/StopTwoTone'
+
 const useStyles = makeStyles((theme) => ({
     root: {
         padding: theme.spacing(2),
@@ -33,7 +36,8 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 // [x] TODO join to game  
-// TODO leave a game
+// [x] TODO leave a game
+// TODO update my game list when i join to new one... it need to reload/refresh the page 
 
 const GameDetails = ({ match }) => {
     const classes = useStyles()
@@ -45,9 +49,7 @@ const GameDetails = ({ match }) => {
         setJoined(true)
         e.preventDefault()
     }
-    if (joined) {
-        return <Redirect to="/mygames" />
-    }
+    if (joined) return <Redirect to="/mygames" />
     return (
         <Grid container className={classes.root} >
             <Grid item container xs={12} className={classes.control} justify="flex-start" alignItems="center">
@@ -67,15 +69,21 @@ const GameDetails = ({ match }) => {
 
                     <ListItem >
                         <ListItemIcon>
-                            <ScheduleIcon />
+                            <SlowMotionVideoTwoToneIcon />
                         </ListItemIcon>
                         <ListItemText primary={<Moment date={data.startTime} format="DD-MM-YYYY HH:mm" />} />
                     </ListItem>
                     <ListItem >
                         <ListItemIcon>
+                            <StopTwoToneIcon />
+                        </ListItemIcon>
+                        <ListItemText primary={<Moment date={data.endTime} format="DD-MM-YYYY HH:mm" />} />
+                    </ListItem>
+                    <ListItem >
+                        <ListItemIcon>
                             <HourglassEmptyIcon />
                         </ListItemIcon>
-                        <ListItemText primary={DurationCalculator(data.startTime, data.endTime)} />
+                        <ListItemText primary={DurationCalculator(data.endTime, data.startTime)} />
                     </ListItem>
 
                     <ListItem >

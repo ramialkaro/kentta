@@ -20,11 +20,11 @@ const Game = () => {
     const [data, setData] = React.useState([])
     let totalColor = color.length
 
-    window.onload = function(){ setData(gameData)}
+    window.onload = function () { setData(gameData) }
 
-    React.useEffect(()=>{
+    React.useEffect(() => {
         setData(gameData)
-    },[gameData])
+    }, [gameData])
 
 
     const handleSearch = game => {
@@ -33,12 +33,13 @@ const Game = () => {
     return (
         <Container className={classes.root}>
             <TopBar data={gameData} setData={handleSearch} />
-            {data.length !==0 ? data.map(game => {
+            {data.length !== 0 ? data.map(game => {
                 let colorIndex = Math.floor(Math.random() * totalColor)
 
                 return (
 
-                    <SimpleCard key={uid(game)} color={color[colorIndex]} data={game} />
+                    Date.parse(game.startTime) > Date.parse(new Date(Date.now())) ?
+                        <SimpleCard key={uid(game)} color={color[colorIndex]} data={game} /> : null
 
                 )
             }) : <h3>not found</h3>}

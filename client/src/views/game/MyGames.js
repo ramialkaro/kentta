@@ -25,7 +25,13 @@ const useStyles = makeStyles((theme) => ({
 }))
 const MyGames = ({ match }) => {
     const classes = useStyles()
-    const myGames = GetMyListGames()
+    const myListGames = GetMyListGames()
+    const [myGames, setMyGames] = React.useState([])
+
+    React.useEffect(() => {
+        setMyGames(myListGames)
+    }, [myListGames])
+
 
     if (myGames.length === 0) {
         return (
@@ -60,7 +66,7 @@ const MyGames = ({ match }) => {
                                             <ListItemText secondary={
                                                 Date.parse(game.startTime) > Date.parse(new Date(Date.now())) ?
                                                     DurationCalculator(game.startTime, new Date(Date.now())) : "game end"} />
-                                                    
+
                                         </ListItem>
                                     </List>
                                 </Grid>

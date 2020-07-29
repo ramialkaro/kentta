@@ -6,9 +6,11 @@ export function Token() {
     const token = "Bearer " + localStorage.getItem("token").replace("\"", "").replace("\"", "")
     return token
 }
+
 export function Header() {
     return
 }
+
 export function GetGames() {
     const [gameData, setGameData] = React.useState([])
 
@@ -62,7 +64,6 @@ export function GetPlayer() {
     return (playerData)
 }
 
-
 export function GetTeam(game_id) {
     const [teamData, setTeamData] = React.useState([])
 
@@ -92,7 +93,7 @@ export function GetMyListGames() {
     const [myGames, setMyGames] = React.useState([])
     const { profileData } = useProfile()
 
-    console.log(profileData.id)
+   
     React.useEffect(() => {
 
         const header = {
@@ -128,7 +129,6 @@ export function LeaveGame(game_id, player_id) {
     apiFetch.delete('/team', header)
         .catch(err => alert(err))
 }
-
 
 export function PostGame(values) {
 
