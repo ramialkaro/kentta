@@ -3,11 +3,13 @@ import { Link } from 'react-router-dom'
 import { Grid, Container, Paper, IconButton, Typography, Button, List, ListItem, ListItemIcon, ListItemText } from '@material-ui/core'
 import { makeStyles } from '@material-ui/core/styles'
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos'
-import { GetMyListGames } from '../../data/fetchData'
+import { Token } from '../../data/fetchData'
 import DurationCalculator from '../../calculations/DurationCalculator'
 import FingerprintIcon from '@material-ui/icons/Fingerprint'
 import HourglassEmptyIcon from '@material-ui/icons/HourglassEmpty'
 import Icon from './Icons'
+import {useProfile} from '../../context/profile'
+import apiFetch from '../../lib/apiFetch'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -15,6 +17,7 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(9),
         paddingBottom: theme.spacing(9),
         backgroundColor: 'rgba(220, 220, 220 , 0.5)',
+        textAlign:'center'
     },
     paper: {
         padding: '2vw',
@@ -25,13 +28,29 @@ const useStyles = makeStyles((theme) => ({
 }))
 const MyGames = ({ match }) => {
     const classes = useStyles()
-    const { data, error } = GetMyListGames()
     const [myGames, setMyGames] = React.useState([])
-
+    const { profileData } = useProfile()
+    const [error, setError] = React.useState([])
+    const [loading, setLoading] = React.useState(false)
     React.useEffect(() => {
-        setMyGames(data)
-    }, [data])
+        setTimeout(()=>{
+            const header = {
+                headers: { 'Authorization': Token() }, params: {
+                    player_id: profileData.id
+                }
+            }
+            setLoading(true)
+            apiFetch.get('/mygames', header)
+                .then(response => setMyGames(response.data))
+                .catch(err => setError(err.response.data.msg))
+                .finally(()=>setLoading(false))
+        }, 300)
+        
+    },[profileData.id])
 
+    if(loading){
+        return <div className={classes.root}>Loading...</div>
+    }
     if (error.length !== 0) {
         return (
             <Grid item xs={12} className={classes.root} direction="column" container justify="center" alignItems="center">

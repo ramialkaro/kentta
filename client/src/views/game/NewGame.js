@@ -149,7 +149,7 @@ const NewGame = () => {
             <Snackbar
                 anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
                 open={open}
-                autoHideDuration={6000}
+                autoHideDuration={9000}
             >
                 <Alert onClose={handleClose} severity="success">
                     Game has created

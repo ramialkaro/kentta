@@ -78,7 +78,7 @@ export function GetMyListGames() {
     const [error, setError] = React.useState([])
 
     React.useEffect(() => {
-
+        
         const header = {
             headers: { 'Authorization': Token() }, params: {
                 player_id: profileData.id

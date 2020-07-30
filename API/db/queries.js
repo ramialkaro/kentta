@@ -13,7 +13,20 @@ module.exports = {
             return knex('player').where({ email }).first()
         },
         getOneById: function (id) {
-            return knex('player').where({ id }).select('id', 'firstname', 'lastname', 'email', 'phone', 'latitude', 'longitude', 'status', 'active', 'team_id', 'additionalInfo').first()
+            return knex('player').where({ id })
+                .select(
+                    'id',
+                    'firstname',
+                    'lastname',
+                    'email',
+                    'phone',
+                    'latitude',
+                    'longitude',
+                    'status',
+                    'active',
+                    'additionalInfo'
+                )
+                .first()
         },
         create: function (player) {
             return knex('player').insert(player)
@@ -29,6 +42,10 @@ module.exports = {
     game: {
         getAll: function () {
             return knex('game')
+            /* .join('team', function(){
+                this.on('game.id','=','team.game_id').onNotIn('player_id',player_id)
+            }) */
+            .orderBy('startTime')
         },
         getOne: function (id) {
             return knex('game').where({ id }).first()
@@ -58,6 +75,7 @@ module.exports = {
             return knex('team')
                 .where({ player_id })
                 .join('game', 'team.game_id', '=', 'game.id')
+                .orderBy('startTime')
         },
 
         // [x] TODO case 1: Player already there, just passing game_id to get players OR team... 
@@ -66,6 +84,7 @@ module.exports = {
                 .where({ game_id })
                 .join('game', 'team.game_id', '=', 'game.id')
                 .join('player', 'team.player_id', '=', 'player.id')
+                
         },
 
         // [x] TODO case 2: player not found in the table then inserting new one 
