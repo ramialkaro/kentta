@@ -13,6 +13,10 @@ const useStyles = makeStyles((theme) => ({
         paddingTop: theme.spacing(9),
         paddingBottom: theme.spacing(9)
     },
+    inMiddle:{
+        textAlign:'center',
+        marginTop:theme.spacing(8)
+    }
 }))
 const Game = () => {
     const classes = useStyles()
@@ -42,7 +46,7 @@ const Game = () => {
                         <SimpleCard key={uid(game)} color={color[colorIndex]} data={game} /> : null
 
                 )
-            }) : <h3>not found</h3>}
+            }) : <h3 className={classes.inMiddle}>Not found</h3>}
 
         </Container>
     )
