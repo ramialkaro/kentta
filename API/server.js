@@ -2,6 +2,8 @@ require('dotenv').config()
 const express = require("express")
 const bodyParser = require("body-parser")
 const cors = require('cors')
+const compression = require('compression')
+const helmet = require('helmet')
 const app = express()
 const port = process.env.PORT || 5050
 
@@ -13,6 +15,8 @@ const team = require('./routes/team')
 app.use(cors())
 
 app.use(require('morgan')('dev'))
+app.use(compression())
+app.use(helmet())
 
 app.use(bodyParser.json())
 

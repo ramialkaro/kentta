@@ -62,8 +62,8 @@ const Team = ({ match }) => {
     return (
         <>
             <Grid container className={classes.top}>
-                <Grid item xs={10}>
-                    <List style={{ letterSpacing: '1.3px', fontSize: '15rem', fontWeight: '900' }}>
+                <Grid item xs={10} container justify="flex-start">
+                    <List >
                         <ListItem >
                             <ListItemIcon>
                                 <FingerprintIcon />
