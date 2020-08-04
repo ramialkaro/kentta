@@ -43,3 +43,6 @@
   left: 0;
   right: 0;
 }
+.map { 
+  height: 100vh; 
+}
