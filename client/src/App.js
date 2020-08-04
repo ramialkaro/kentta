@@ -12,7 +12,7 @@ import { useIdleTimer } from 'react-idle-timer'
 function App() {
 
 
-  const handleOnIdle = event => {
+/*   const handleOnIdle = event => {
    
     const diff = Date.parse(new Date(Date.now())) - Date.parse(new Date(getLastActiveTime()))
     console.log(diff)
@@ -34,7 +34,7 @@ function App() {
     onActive: handleOnActive,
     onAction: handleOnAction,
     debounce: 500
-  })
+  }) */
 
   const existingTokens = JSON.parse(localStorage.getItem("token"))
   const existingPlayer = JSON.parse(localStorage.getItem("player"))
