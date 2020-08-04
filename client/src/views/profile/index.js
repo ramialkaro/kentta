@@ -4,6 +4,7 @@ import { Typography, Grid, Avatar, TextField, Switch, FormControlLabel, InputLab
 import { Link, Redirect } from 'react-router-dom'
 import Lock from '@material-ui/icons/Lock'
 import { useProfile } from '../../context/profile'
+import Logout from '../../components/Logout'
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -58,11 +59,7 @@ const Profile = () => {
         setState({ ...state, [name]: e.target.value })
     }
     const logOut = () => {
-        setTimeout(() => {
-            return <Redirect to="/" />
-        }, 200)
-        localStorage.removeItem("token")
-        localStorage.removeItem("player")
+       Logout()
     }
     return (
         <Container className={classes.root}>

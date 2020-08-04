@@ -5,12 +5,36 @@ import { ThemeProvider } from '@material-ui/core'
 import theme from './theme'
 import { AuthContext } from './context/auth'
 import { ProfileContext } from './context/profile'
-
+import { useIdleTimer } from 'react-idle-timer'
 
 // [x] TODO don't remove token when reload or refresh 
 
 function App() {
 
+
+  const handleOnIdle = event => {
+   
+    const diff = Date.parse(new Date(Date.now())) - Date.parse(new Date(getLastActiveTime()))
+    console.log(diff)
+    console.log('last active', new Date(getLastActiveTime()))
+  }
+ 
+  const handleOnActive = event => {
+    console.log('user is active', event)
+    console.log('time remaining', getRemainingTime())
+  }
+ 
+  const handleOnAction = (e) => {
+    console.log('user did something', e)
+  }
+ 
+  const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+    timeout: 1000 *4,
+    onIdle: handleOnIdle,
+    onActive: handleOnActive,
+    onAction: handleOnAction,
+    debounce: 500
+  })
 
   const existingTokens = JSON.parse(localStorage.getItem("token"))
   const existingPlayer = JSON.parse(localStorage.getItem("player"))
@@ -26,6 +50,7 @@ function App() {
     setProfileData(data)
   }
 
+  
 
   return (
     <ThemeProvider theme={theme}>

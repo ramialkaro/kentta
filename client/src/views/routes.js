@@ -29,8 +29,8 @@ const SecureRoute = ({ component: Component, ...rest }) => {
     )
 }
 
-
 const Routes = () => {
+    
     return (
         <Router>
             <Switch>
