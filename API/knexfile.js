@@ -2,7 +2,7 @@
 
 module.exports = {
     development: {
-        client:'mysql',
+        client:'pg',
         connection :{
             host: process.env.DB_HOST,
             user: process.env.DB_USERNAME,
