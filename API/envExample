@@ -1,0 +1,5 @@
+DB_HOST=localhost
+DB_USERNAME=yourUserName
+DB_PASSWORD=yourPassword
+DB_DATABASE=yourDBName
+PORT=5000
