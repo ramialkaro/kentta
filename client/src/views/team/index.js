@@ -60,7 +60,7 @@ const Team = ({ match }) => {
     if (state.leave) return <Redirect to="/mygames" />
 
     return (
-        <>
+        <div>
             <Grid container className={classes.top}>
                 <Grid item xs={10} container justify="flex-start">
                     <List >
@@ -110,7 +110,7 @@ const Team = ({ match }) => {
                 }
 
             </Container>
-        </>
+        </div>
     )
 }
 
