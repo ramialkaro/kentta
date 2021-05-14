@@ -68,7 +68,7 @@ router.post('/register', async (req, res) => {
                 .create(req.body)
             if (newPlayer) {
                 const token = jwt.sign({ newPlayer }, process.env.JWT_SECRET, { expiresIn: "24h" })
-                res.status(200).json({ newPlayer: await queries.player.getOneById(newPlayer), token, msg: "register" })
+                res.status(200).json({ newPlayer: await queries.player.getOne(newPlayer), token, msg: "register" })
             }
 
         } else {
