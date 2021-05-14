@@ -1,13 +1,13 @@
 CREATE TABLE "players" (
   "id" bigserial UNIQUE PRIMARY KEY,
   "firstname" varchar NOT NULL,
-  "latstname" varchar NOT NULL,
+  "lastname" varchar NOT NULL,
   "email" varchar UNIQUE NOT NULL,
   "password" varchar NOT NULL,
   "phone" varchar NOT NULL,
   "latitude" float,
   "longtude" float,
-  "status" boolean NOT NULL,
+  "status" varchar NOT NULL,
   "active" boolean NOT NULL,
   "additional_info" text
 );
