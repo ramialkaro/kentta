@@ -45,7 +45,10 @@ const Register = () => {
             lastname,
             email,
             password,
-            phone
+            phone,
+            active:true,
+            status:'going',
+            additional_info:'test'
         }
 
         apiFetch.post('/register', values)
