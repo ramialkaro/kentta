@@ -1,8 +1,8 @@
-import axios from 'axios'
-import {ApiUrl} from './config'
+import axios from "axios";
+import { ApiUrl } from "./config";
 
 const apiFetch = axios.create({
-    baseURL:ApiUrl,
-})
+  baseURL: ApiUrl,
+});
 
-export default apiFetch
+export default apiFetch;

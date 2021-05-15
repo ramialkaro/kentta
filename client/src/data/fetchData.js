@@ -45,7 +45,7 @@ export function GetPlayer() {
 
         const header = { headers: { 'Authorization': Token() } }
 
-        apiFetch.get('/player', header)
+        apiFetch.get('/players', header)
             .then(response => setPlayerData(response.data))
             .catch(err => alert(err))
     }, [])
@@ -65,7 +65,7 @@ export function GetTeam(game_id) {
             }
         }
 
-        apiFetch.get('/team', header)
+        apiFetch.get('/teams', header)
             .then(response => setTeamData(response.data))
             .catch(err => alert(err))
     }, [game_id, profileData.id])
@@ -95,7 +95,7 @@ export function JoinGame(game_id, player_id) {
 
     const header = { headers: { 'Authorization': Token() } }
 
-    apiFetch.post('/team', { player_id, game_id }, header)
+    apiFetch.post('/teams', { player_id, game_id }, header)
         .catch(err => alert(err))
 }
 
@@ -109,7 +109,7 @@ export function LeaveGame(game_id, player_id) {
         }
     }
 
-    apiFetch.delete('/team', header)
+    apiFetch.delete('/teams', header)
         .catch(err => alert(err))
 }
 
