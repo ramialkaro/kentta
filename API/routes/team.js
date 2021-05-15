@@ -25,7 +25,7 @@ protectedRouter.get('/mygames', async (req, res) => {
     }
 })
 // TODO player already have a game then get list of player in same team
-protectedRouter.get('/team', async (req, res) => {
+protectedRouter.get('/teams', async (req, res) => {
     try {
 
         // check if player already in table
@@ -51,7 +51,7 @@ protectedRouter.get('/team', async (req, res) => {
 })
 
 // TODO join a game
-protectedRouter.post('/team', async (req, res) => {
+protectedRouter.post('/teams', async (req, res) => {
     try {
         // TODO check if player already in table
         const checking = await queries
@@ -72,7 +72,7 @@ protectedRouter.post('/team', async (req, res) => {
 })
 
 // TODO leave a game
-protectedRouter.delete('/team', async (req, res) => {
+protectedRouter.delete('/teams', async (req, res) => {
     try {
 
         const id = await queries
