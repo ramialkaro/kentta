@@ -3,40 +3,42 @@ CREATE TABLE "players" (
   "firstname" varchar NOT NULL,
   "lastname" varchar NOT NULL,
   "email" varchar UNIQUE NOT NULL,
+  "imageUrl" varchar,
   "password" varchar NOT NULL,
   "phone" varchar NOT NULL,
   "latitude" float,
   "longtude" float,
-  "status" varchar NOT NULL,
+  "status" varchar NOT NULL DEFAULT 'avilable',
   "active" boolean NOT NULL,
-  "additional_info" text
+  "additionalInfo" text,
+  "createdAt" timestamptz DEFAULT (now())
 );
 
 CREATE TABLE "games" (
   "id" bigserial UNIQUE PRIMARY KEY,
-  "game_type" varchar NOT NULL,
-  "start_time" timestamptz NOT NULL DEFAULT (now()),
-  "end_time" timestamptz NOT NULL DEFAULT (now()),
-  "game_short_id" varchar
+  "gameType" varchar NOT NULL,
+  "startTime" timestamptz NOT NULL DEFAULT (now()),
+  "endTime" timestamptz NOT NULL DEFAULT (now()),
+  "gameShortID" varchar,
+  "location" varchar,
+  "gameResult" varchar,
+  "winTeamID" bigint
 );
 
 CREATE TABLE "teams" (
   "id" bigserial PRIMARY KEY,
-  "game_id" bigint NOT NULL,
-  "player_id" bigint NOT NULL,
-  "start_time" timestamptz NOT NULL DEFAULT (now()),
-  "end_time" timestamptz NOT NULL DEFAULT (now()),
-  "game_short_id" varchar
+  "name" varchar,
+  "gameID" bigint,
+  "playerID" bigint,
+  "createdAt" timestamptz DEFAULT (now())
 );
 
-ALTER TABLE "teams" ADD FOREIGN KEY ("game_id") REFERENCES "games" ("id");
+ALTER TABLE "games" ADD FOREIGN KEY ("winTeamID") REFERENCES "teams" ("id");
 
-ALTER TABLE "teams" ADD FOREIGN KEY ("player_id") REFERENCES "players" ("id");
+ALTER TABLE "teams" ADD FOREIGN KEY ("gameID") REFERENCES "games" ("id");
+
+ALTER TABLE "teams" ADD FOREIGN KEY ("playerID") REFERENCES "players" ("id");
 
 CREATE INDEX ON "players" ("id");
 
-CREATE INDEX ON "teams" ("game_id");
-
-CREATE INDEX ON "teams" ("player_id");
-
-CREATE INDEX ON "teams" ("game_id", "player_id");
+CREATE INDEX ON "teams" ("gameID", "playerID");
