@@ -18,7 +18,7 @@ export function GetGames() {
 
         const header = { headers: { 'Authorization': Token() } }
 
-        apiFetch.get('/game', header)
+        apiFetch.get('/games', header)
             .then(response => setGameData(response.data))
             .catch(err => alert(err))
     }, [])
@@ -31,7 +31,7 @@ export function GetGame(id) {
 
         const header = { headers: { 'Authorization': Token() } }
 
-        apiFetch.get(`/game/${id}`, header)
+        apiFetch.get(`/games/${id}`, header)
             .then(response => setGame(response.data))
             .catch(err => alert(err))
     }, [id])
@@ -81,7 +81,7 @@ export function GetMyListGames() {
         
         const header = {
             headers: { 'Authorization': Token() }, params: {
-                player_id: profileData.id
+                playerID: profileData.id
             }
         }
         apiFetch.get('/mygames', header)
@@ -117,7 +117,7 @@ export function PostGame(values) {
 
     const header = { headers: { 'Authorization': Token() } }
 
-    apiFetch.post(`/game`, values, header)
+    apiFetch.post(`/games`, values, header)
         .catch(err => alert(err))
 }
 
