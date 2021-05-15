@@ -36,8 +36,8 @@ function App() {
     debounce: 500
   }) */
 
-  const existingTokens = JSON.parse(localStorage.getItem("token"))
-  const existingPlayer = JSON.parse(localStorage.getItem("player"))
+  const existingTokens = JSON.parse(localStorage.getItem("token")) || ""
+  const existingPlayer = JSON.parse(localStorage.getItem("player")) || ""
   const [authTokens, setAuthTokens] = React.useState(existingTokens)
   const [profileData, setProfileData] = React.useState(existingPlayer)
 
